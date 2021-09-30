@@ -45,23 +45,21 @@ intras=arca$alpha_intra
 # lottery model
 #for (r in 1:runs){
   for (t in 1:(time-1)) {
-    x1 <- sample(seq(1, 4500),1) # germ
-    x2 <- sample(seq(1, 4500),1) # surv
-    x3 <- sample(seq(1, 4500),1) # lambdas, intras
+    p <- sample(seq(1, 4500),1) # germ
     #for (t in 1:(time-1)) { 
     for (r in 1:runs){ 
     # calculate how many seeds remain in the seedbank
-    seedbank <- (1-germ[x1])*surv[x2]*seed.abundances[r,t]
+    seedbank <- (1-germ[p])*surv[p]*seed.abundances[r,t]
     
     # calculate germination from the seedbank
-    germinated <- seed.abundances[r,t]*germ[x1]
+    germinated <- seed.abundances[r,t]*germ[p]
     
     # calculate how many germinants live that year
     #lived <- min(germinated, ag_carrying$x[y])
     lived=germinated
     
     # calculate how many seeds are produced by living germinants 
-    new.seeds <- do.lottery.new.seeds(lived=lived, lambda=lambdas[x3], alpha_intra=intras[x3])
+    new.seeds <- do.lottery.new.seeds(lived=lived, lambda=lambdas[p], alpha_intra=intras[p])
     
     # add above ground seeds produced to those that survived and didn't germinate from the seedbank
     seed.abundances[r, t+1] <- seedbank + new.seeds
@@ -93,23 +91,21 @@ intras=dagl$alpha_intra
 # lottery model
 #for (r in 1:runs){
   for (t in 1:(time-1)) {
-    x1 <- sample(seq(1, 4500),1) # germ
-    x2 <- sample(seq(1, 4500),1) # surv
-    x3 <- sample(seq(1, 4500),1) # lambdas, intras
+    p <- sample(seq(1, 4500),1) # germ
     #for (t in 1:(time-1)) {
     for (r in 1:runs){
     # calculate how many seeds remain in the seedbank
-    seedbank <- (1-germ[x1])*surv[x2]*seed.abundances[r,t]
+    seedbank <- (1-germ[p])*surv[p]*seed.abundances[r,t]
     
     # calculate germination from the seedbank
-    germinated <- seed.abundances[r,t]*germ[x1]
+    germinated <- seed.abundances[r,t]*germ[p]
     
     # calculate how many germinants live that year
     #lived <- min(germinated, ag_carrying$x[y])
     lived = germinated
     
     # calculate how many seeds are produced by living germinants 
-    new.seeds <- do.lottery.new.seeds(lived=lived, lambda=lambdas[x3], alpha_intra=intras[x3])
+    new.seeds <- do.lottery.new.seeds(lived=lived, lambda=lambdas[p], alpha_intra=intras[p])
     
     # add above ground seeds produced to those that survived and didn't germinate from the seedbank
     seed.abundances[r, t+1] <- seedbank + new.seeds
@@ -138,23 +134,22 @@ intras=hygl$alpha_intra
 # lottery model
 #for (r in 1:runs){
  for (t in 1:(time-1)) {
-    x1 <- sample(seq(1, 4500),1) # germ
-    x2 <- sample(seq(1, 4500),1) # surv
-    x3 <- sample(seq(1, 4500),1) # lambdas, intras
+    p <- sample(seq(1, 4500),1) # germ
+
     #for (t in 1:(time-1)) {
     for (r in 1:runs){
     # calculate how many seeds remain in the seedbank
-    seedbank <- (1-germ[x1])*surv[x2]*seed.abundances[r,t]
+    seedbank <- (1-germ[p])*surv[p]*seed.abundances[r,t]
     
     # calculate germination from the seedbank
-    germinated <- seed.abundances[r,t]*germ[x1]
+    germinated <- seed.abundances[r,t]*germ[p]
     
     # calculate how many germinants live that year
     #lived <- min(germinated, ag_carrying$x[y])
     lived = germinated
     
     # calculate how many seeds are produced by living germinants 
-    new.seeds <- do.lottery.new.seeds(lived=lived, lambda=lambdas[x3], alpha_intra=intras[x3])
+    new.seeds <- do.lottery.new.seeds(lived=lived, lambda=lambdas[p], alpha_intra=intras[p])
     
     # add above ground seeds produced to those that survived and didn't germinate from the seedbank
     seed.abundances[r, t+1] <- seedbank + new.seeds
@@ -182,23 +177,22 @@ intras=plde$alpha_intra
 # lottery model
 #for (r in 1:runs){
   for (t in 1:(time-1)) {
-    x1 <- sample(seq(1, 4500),1) # germ
-    x2 <- sample(seq(1, 4500),1) # surv
-    x3 <- sample(seq(1, 4500),1) # lambdas, intras
+    p <- sample(seq(1, 4500),1) # germ
+
     #for (t in 1:(time-1)) {
     for (r in 1:runs){
     # calculate how many seeds remain in the seedbank
-    seedbank <- (1-germ[x1])*surv[x2]*seed.abundances[r,t]
+    seedbank <- (1-germ[p])*surv[p]*seed.abundances[r,t]
     
     # calculate germination from the seedbank
-    germinated <- seed.abundances[r,t]*germ[x1]
+    germinated <- seed.abundances[r,t]*germ[p]
     
     # calculate how many germinants live that year
     #lived <- min(germinated, ag_carrying$x[y])
     lived = germinated
     
     # calculate how many seeds are produced by living germinants 
-    new.seeds <- do.lottery.new.seeds(lived=lived, lambda=lambdas[x3], alpha_intra=intras[x3])
+    new.seeds <- do.lottery.new.seeds(lived=lived, lambda=lambdas[p], alpha_intra=intras[p])
     
     # add above ground seeds produced to those that survived and didn't germinate from the seedbank
     seed.abundances[r, t+1] <- seedbank + new.seeds
@@ -272,23 +266,22 @@ intras=trcy$alpha_intra
 # lottery model
 #for (r in 1:runs){
   for (t in 1:(time-1)) {
-    x1 <- sample(seq(1, 4500),1) # germ
-    x2 <- sample(seq(1, 4500),1) # surv
-    x3 <- sample(seq(1, 4500),1) # lambdas, intras
+    p <- sample(seq(1, 4500),1) # germ
+
     #for (t in 1:(time-1)) {
     for (r in 1:runs){
     # calculate how many seeds remain in the seedbank
-    seedbank <- (1-germ[x1])*surv[x2]*seed.abundances[r,t]
+    seedbank <- (1-germ[p])*surv[p]*seed.abundances[r,t]
     
     # calculate germination from the seedbank
-    germinated <- seed.abundances[r,t]*germ[x1]
+    germinated <- seed.abundances[r,t]*germ[p]
     
     # calculate how many germinants live that year
     #lived <- min(germinated, ag_carrying$x[y])
     lived = germinated
     
     # calculate how many seeds are produced by living germinants 
-    new.seeds <- do.lottery.new.seeds(lived=lived, lambda=lambdas[x3], alpha_intra=intras[x3])
+    new.seeds <- do.lottery.new.seeds(lived=lived, lambda=lambdas[p], alpha_intra=intras[p])
     
     # add above ground seeds produced to those that survived and didn't germinate from the seedbank
     seed.abundances[r, t+1] <- seedbank + new.seeds
@@ -315,23 +308,21 @@ intras=vero$alpha_intra
 # lottery model
 #for (r in 1:runs){
   for (t in 1:(time-1)) {
-    x1 <- sample(seq(1, 4500),1) # germ
-    x2 <- sample(seq(1, 4500),1) # surv
-    x3 <- sample(seq(1, 4500),1) # lambdas, intras
+    p <- sample(seq(1, 4500),1) # germ
     #for (t in 1:(time-1)) { 
     for (r in 1:runs){
     # calculate how many seeds remain in the seedbank
-    seedbank <- (1-germ[x1])*surv[x2]*seed.abundances[r,t]
+    seedbank <- (1-germ[p])*surv[p]*seed.abundances[r,t]
     
     # calculate germination from the seedbank
-    germinated <- seed.abundances[r,t]*germ[x1]
+    germinated <- seed.abundances[r,t]*germ[p]
     
     # calculate how many germinants live that year
     #lived <- min(germinated, ag_carrying$x[y])
     lived = germinated
     
     # calculate how many seeds are produced by living germinants 
-    new.seeds <- do.lottery.new.seeds(lived=lived, lambda=lambdas[x3], alpha_intra=intras[x3])
+    new.seeds <- do.lottery.new.seeds(lived=lived, lambda=lambdas[p], alpha_intra=intras[p])
     
     # add above ground seeds produced to those that survived and didn't germinate from the seedbank
     seed.abundances[r, t+1] <- seedbank + new.seeds
@@ -360,23 +351,22 @@ intras=medi$alpha_intra
 # lottery model
 #for (r in 1:runs){
   for (t in 1:(time-1)) {
-    x1 <- sample(seq(1, 4500),1) # germ
-    x2 <- sample(seq(1, 4500),1) # surv
-    x3 <- sample(seq(1, 4500),1) # lambdas, intras
+    p <- sample(seq(1, 4500),1) # germ
+
     #for (t in 1:(time-1)) { 
     for (r in 1:runs){
     # calculate how many seeds remain in the seedbank
-    seedbank <- (1-germ[x1])*surv[x2]*seed.abundances[r,t]
+    seedbank <- (1-germ[p])*surv[p]*seed.abundances[r,t]
     
     # calculate germination from the seedbank
-    germinated <- seed.abundances[r,t]*germ[x1]
+    germinated <- seed.abundances[r,t]*germ[p]
     
     # calculate how many germinants live that year
     #lived <- min(germinated, ag_carrying$x[y])
     lived = germinated
     
     # calculate how many seeds are produced by living germinants 
-    new.seeds <- do.lottery.new.seeds(lived=lived, lambda=lambdas[x3], alpha_intra=intras[x3])
+    new.seeds <- do.lottery.new.seeds(lived=lived, lambda=lambdas[p], alpha_intra=intras[p])
     
     # add above ground seeds produced to those that survived and didn't germinate from the seedbank
     seed.abundances[r, t+1] <- seedbank + new.seeds
@@ -404,25 +394,22 @@ intras=peai$alpha_intra
 # lottery model
 #for (r in 1:runs){
   for (t in 1:(time-1)) {
-    x <- sample(seq(1, 4500),1)
-    x1 <- sample(seq(1, 4500),1) # germ
-    x2 <- sample(seq(1, 4500),1) # surv
-    x3 <- sample(seq(1, 4500),1) # lambdas, intras
+    p <- sample(seq(1, 4500),1)
     #for (t in 1:(time-1)) {
     for (r in 1:runs){
     
     # calculate how many seeds remain in the seedbank
-    seedbank <- (1-germ[x1])*surv[x2]*seed.abundances[r,t]
+    seedbank <- (1-germ[p])*surv[p]*seed.abundances[r,t]
     
     # calculate germination from the seedbank
-    germinated <- seed.abundances[r,t]*germ[x1]
+    germinated <- seed.abundances[r,t]*germ[p]
     
     # calculate how many germinants live that year 
     #lived <- min(germinated, ag_carrying$x[y])
     lived = germinated
     
     # calculate how many seeds are produced by living germinants 
-    new.seeds <- do.lottery.new.seeds(lived=lived, lambda=lambdas[x3], alpha_intra=intras[x3])
+    new.seeds <- do.lottery.new.seeds(lived=lived, lambda=lambdas[p], alpha_intra=intras[p])
     
     # add above ground seeds produced to those that survived and didn't germinate from the seedbank
     seed.abundances[r, t+1] <- seedbank + new.seeds

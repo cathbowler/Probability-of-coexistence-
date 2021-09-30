@@ -10,19 +10,19 @@ source("BH.equalizing.stabilizing.R")
 #setwd("/Users/lash1937/Dropbox/Shared/Bayesian data - Cath Collaboration/Updated Coexistence code")
 #setwd("/Users/catherinebowler/Dropbox/Bayesian data - Cath Collaboration/Coexistence code")
 load("BH stan models/Arca_posteriors.rdata")
-arca <- extract(PrelimFit)
+arca <- rstan::extract(PrelimFit)
 remove(PrelimFit)
 
 load("BH stan models/Dagl_posteriors.rdata")
-dagl <- extract(PrelimFit)
+dagl <- rstan::extract(PrelimFit)
 remove(PrelimFit)
 
 load("BH stan models//Hygl_posteriors.rdata")
-hygl <- extract(PrelimFit)
+hygl <- rstan::extract(PrelimFit)
 remove(PrelimFit)
 
 load("BH stan models//Medi_posteriors.rdata")
-medi <- extract(PrelimFit)
+medi <- rstan::extract(PrelimFit)
 remove(PrelimFit)
 
 #load("Momo/Momo_posteriors.rdata")
@@ -30,32 +30,32 @@ remove(PrelimFit)
 #remove(PrelimFit)
 
 load("BH stan models//Peai_posteriors.rdata")
-peai <- extract(PrelimFit)
+peai <- rstan::extract(PrelimFit)
 remove(PrelimFit)
 
 load("BH stan models//Plde_posteriors.rdata")
-plde <- extract(PrelimFit)
+plde <- rstan::extract(PrelimFit)
 remove(PrelimFit)
 
 load("BH stan models//Poca_posteriors.rdata")
-poca <- extract(PrelimFit)
+poca <- rstan::extract(PrelimFit)
 remove(PrelimFit)
 
 load("BH stan models//Trcy_posteriors.rdata")
-trcy <- extract(PrelimFit)
+trcy <- rstan::extract(PrelimFit)
 remove(PrelimFit)
 
 load("BH stan models//Vero_posteriors.rdata")
-vero <- extract(PrelimFit)
+vero <- rstan::extract(PrelimFit)
 remove(PrelimFit)
 
 load("SurvivalAndGermination/Germination.rdata")
-germ <- extract(PrelimFit)
+germ <- rstan::extract(PrelimFit)
 germ<-as.data.frame(germ)
 remove(PrelimFit)
 
 load("SurvivalAndGermination/Survival.rdata")
-surv <- extract(PrelimFit)
+surv <- rstan::extract(PrelimFit)
 surv<-as.data.frame(surv)
 remove(PrelimFit)
 
@@ -216,27 +216,105 @@ for (i in 1:14) {
   mtext(pairs[i], side=3, cex = 0.7)
   
 }
-dev.off()
 
-par(mar=c(4,4,2,2))
+par( mar=c(4,4,2,2))
 plot(corrected.stabilizing[,6], log(equalizing[,6]), pch=16, col="skyblue", xlab="Stabilizing ND", ylab="Log FD", xlim=c(0,1), ylim=c(0,12))
 points(mean.corrected.stabilizing[6], log(mean.equalizing[6]), pch=19, col="black")
 lines(xseq, log(yseq), col="grey", lwd=2)
 abline(v=HPDinterval(mcmc(corrected.stabilizing[,6])), h=log(HPDinterval(mcmc(equalizing[,6]))))
 polygon(c(xseq, rev(xseq)), c(log(yseq), rep(0, length(xseq))), col=tgreen)
 
+pairs <- c("A. calendula & P. airoides", "A.calendula & P.canescens", "H.glutinosum & M.minima", 
+           "H. glutinosum & P. airoides", "H. glutinosum & P.deibilis", "H. glutinosum & G. rosea", 
+           "M.minima & P. airoides", "P.airoides & P. debilis", "P. airoides & P. canescens", 
+           "P. airoides & T. cyanopetala", "P. airoides & G. rosea", "P. debilis & P. canescens", 
+           "P.canescens & T. cyanopetala", "P. canescens & G. rosea")
 
 # matrix plot ####
+pdf("Figures/EqualizingStabilizingDistributions_revisions.pdf")
+par(mar=c(4,4,2,2), mfrow=c(5,3))
+plot(corrected.stabilizing[,5], log(equalizing[,5]), pch=16, col=alpha("skyblue", 0.5), xlab="Stabilizing ND", ylab="Log FD", xlim=c(0,1), ylim=c(0,12))
+points(mean.corrected.stabilizing[5], log(mean.equalizing[5]), pch=19, col="black")
+lines(xseq, log(yseq), col="grey", lwd=2)
+polygon(c(xseq, rev(xseq)), c(log(yseq), rep(0, length(xseq))), col=tgreen)
+mtext(pairs[5], side=3, cex = 0.7)
 
-par(mar=c(4,4,2,2))
+plot(corrected.stabilizing[,8], log(equalizing[,8]), pch=16, col=alpha("skyblue", 0.5), xlab="Stabilizing ND", ylab="Log FD", xlim=c(0,1), ylim=c(0,12))
+points(mean.corrected.stabilizing[8], log(mean.equalizing[8]), pch=19, col="black")
+lines(xseq, log(yseq), col="grey", lwd=2)
+polygon(c(xseq, rev(xseq)), c(log(yseq), rep(0, length(xseq))), col=tgreen)
+mtext(pairs[8], side=3, cex = 0.7)
+
+plot(corrected.stabilizing[,4], log(equalizing[,4]), pch=16, col=alpha("skyblue", 0.5), xlab="Stabilizing ND", ylab="Log FD", xlim=c(0,1), ylim=c(0,12))
+points(mean.corrected.stabilizing[4], log(mean.equalizing[4]), pch=19, col="black")
+lines(xseq, log(yseq), col="grey", lwd=2)
+polygon(c(xseq, rev(xseq)), c(log(yseq), rep(0, length(xseq))), col=tgreen)
+mtext(pairs[4], side=3, cex = 0.7)
+
+plot(corrected.stabilizing[,9], log(equalizing[,9]), pch=16, col=alpha("skyblue", 0.5), xlab="Stabilizing ND", ylab="Log FD", xlim=c(0,1), ylim=c(0,12))
+points(mean.corrected.stabilizing[9], log(mean.equalizing[9]), pch=19, col="black")
+lines(xseq, log(yseq), col="grey", lwd=2)
+polygon(c(xseq, rev(xseq)), c(log(yseq), rep(0, length(xseq))), col=tgreen)
+mtext(pairs[9], side=3, cex = 0.7)
+
+plot(corrected.stabilizing[,3], log(equalizing[,3]), pch=16, col=alpha("skyblue", 0.5), xlab="Stabilizing ND", ylab="Log FD", xlim=c(0,1), ylim=c(0,12))
+points(mean.corrected.stabilizing[3], log(mean.equalizing[3]), pch=19, col="black")
+lines(xseq, log(yseq), col="grey", lwd=2)
+polygon(c(xseq, rev(xseq)), c(log(yseq), rep(0, length(xseq))), col=tgreen)
+mtext(pairs[3], side=3, cex = 0.7)
+
 plot(corrected.stabilizing[,1], log(equalizing[,1]), pch=16, col=alpha("skyblue", 0.5), xlab="Stabilizing ND", ylab="Log FD", xlim=c(0,1), ylim=c(0,12))
 points(mean.corrected.stabilizing[1], log(mean.equalizing[1]), pch=19, col="black")
 lines(xseq, log(yseq), col="grey", lwd=2)
 polygon(c(xseq, rev(xseq)), c(log(yseq), rep(0, length(xseq))), col=tgreen)
 mtext(pairs[1], side=3, cex = 0.7)
 
-plot(corrected.stabilizing[,1], log(equalizing[,1]), pch=16, col=alpha("skyblue", 0.5), xlab="Stabilizing ND", ylab="Log FD", xlim=c(0,1), ylim=c(0,12))
-points(mean.corrected.stabilizing[1], log(mean.equalizing[1]), pch=19, col="black")
+plot(corrected.stabilizing[,12], log(equalizing[,12]), pch=16, col=alpha("skyblue", 0.5), xlab="Stabilizing ND", ylab="Log FD", xlim=c(0,1), ylim=c(0,12))
+points(mean.corrected.stabilizing[12], log(mean.equalizing[12]), pch=19, col="black")
 lines(xseq, log(yseq), col="grey", lwd=2)
 polygon(c(xseq, rev(xseq)), c(log(yseq), rep(0, length(xseq))), col=tgreen)
-mtext(pairs[1], side=3, cex = 0.7)
+mtext(pairs[12], side=3, cex = 0.7)
+
+plot(corrected.stabilizing[,2], log(equalizing[,2]), pch=16, col=alpha("skyblue", 0.5), xlab="Stabilizing ND", ylab="Log FD", xlim=c(0,1), ylim=c(0,12))
+points(mean.corrected.stabilizing[2], log(mean.equalizing[2]), pch=19, col="black")
+lines(xseq, log(yseq), col="grey", lwd=2)
+polygon(c(xseq, rev(xseq)), c(log(yseq), rep(0, length(xseq))), col=tgreen)
+mtext(pairs[2], side=3, cex = 0.7)
+
+plot(corrected.stabilizing[,6], log(equalizing[,6]), pch=16, col=alpha("skyblue", 0.5), xlab="Stabilizing ND", ylab="Log FD", xlim=c(0,1), ylim=c(0,12))
+points(mean.corrected.stabilizing[6], log(mean.equalizing[6]), pch=19, col="black")
+lines(xseq, log(yseq), col="grey", lwd=2)
+polygon(c(xseq, rev(xseq)), c(log(yseq), rep(0, length(xseq))), col=tgreen)
+mtext(pairs[6], side=3, cex = 0.7)
+
+plot(corrected.stabilizing[,7], log(equalizing[,7]), pch=16, col=alpha("skyblue", 0.5), xlab="Stabilizing ND", ylab="Log FD", xlim=c(0,1), ylim=c(0,12))
+points(mean.corrected.stabilizing[7], log(mean.equalizing[7]), pch=19, col="black")
+lines(xseq, log(yseq), col="grey", lwd=2)
+polygon(c(xseq, rev(xseq)), c(log(yseq), rep(0, length(xseq))), col=tgreen)
+mtext(pairs[7], side=3, cex = 0.7)
+
+plot(corrected.stabilizing[,10], log(equalizing[,10]), pch=16, col=alpha("skyblue", 0.5), xlab="Stabilizing ND", ylab="Log FD", xlim=c(0,1), ylim=c(0,12))
+points(mean.corrected.stabilizing[10], log(mean.equalizing[10]), pch=19, col="black")
+lines(xseq, log(yseq), col="grey", lwd=2)
+polygon(c(xseq, rev(xseq)), c(log(yseq), rep(0, length(xseq))), col=tgreen)
+mtext(pairs[10], side=3, cex = 0.7)
+
+plot(corrected.stabilizing[,11], log(equalizing[,11]), pch=16, col=alpha("skyblue", 0.5), xlab="Stabilizing ND", ylab="Log FD", xlim=c(0,1), ylim=c(0,12))
+points(mean.corrected.stabilizing[11], log(mean.equalizing[11]), pch=19, col="black")
+lines(xseq, log(yseq), col="grey", lwd=2)
+polygon(c(xseq, rev(xseq)), c(log(yseq), rep(0, length(xseq))), col=tgreen)
+mtext(pairs[11], side=3, cex = 0.7)
+
+plot(corrected.stabilizing[,13], log(equalizing[,13]), pch=16, col=alpha("skyblue", 0.5), xlab="Stabilizing ND", ylab="Log FD", xlim=c(0,1), ylim=c(0,12))
+points(mean.corrected.stabilizing[13], log(mean.equalizing[13]), pch=19, col="black")
+lines(xseq, log(yseq), col="grey", lwd=2)
+polygon(c(xseq, rev(xseq)), c(log(yseq), rep(0, length(xseq))), col=tgreen)
+mtext(pairs[13], side=3, cex = 0.7)
+
+plot(corrected.stabilizing[,14], log(equalizing[,14]), pch=16, col=alpha("skyblue", 0.5), xlab="Stabilizing ND", ylab="Log FD", xlim=c(0,1), ylim=c(0,12))
+points(mean.corrected.stabilizing[14], log(mean.equalizing[14]), pch=19, col="black")
+lines(xseq, log(yseq), col="grey", lwd=2)
+polygon(c(xseq, rev(xseq)), c(log(yseq), rep(0, length(xseq))), col=tgreen)
+mtext(pairs[14], side=3, cex = 0.7)
+dev.off()
+

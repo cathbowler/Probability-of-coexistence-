@@ -6,10 +6,6 @@ sp <- 9
 
 sp_list <- c("dagl", "hygl", "plde", 
              "poca", "trcy", "vero", "arca", "medi", "peai")
-#sp_list <- c(dagl, gite, hygl, plde, 
-#             poca, trcy, vero, arca, medi, momo, peai)
-
-#setwd("/Users/lash1937/Dropbox/Shared/Bayesian data - Cath Collaboration/Updated Coexistence code")
 
 source("Bayes.data.R")
 
