@@ -33,12 +33,12 @@ model{
   sigma_0 ~ normal(0, 1000);
   epsilon ~ gamma(sigma, sigma);
   lambda_0 ~ normal(0, 1000);
-  alpha_intra ~ normal(0, 1);
-  alpha_hygl ~ normal(0,1);
-  alpha_poca ~ normal(0, 1);
-  alpha_vero ~ normal(0, 1);
-  alpha_peai ~ normal(0, 1);
-  alpha_other ~ normal(0, 1);
+  alpha_intra ~ normal(0, 10);
+  alpha_hygl ~ normal(0, 10);
+  alpha_poca ~ normal(0, 10);
+  alpha_vero ~ normal(0, 10);
+  alpha_peai ~ normal(0, 10);
+  alpha_other ~ normal(0, 10);
 
   // implement the biological model
   for(i in 1:N){

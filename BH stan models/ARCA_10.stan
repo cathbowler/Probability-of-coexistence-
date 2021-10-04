@@ -22,13 +22,13 @@ model{
 
   // set priors
   lambda ~ gamma(0.001, 0.001);
-  alpha_intra ~ normal(0, 1);
-  alpha_plde ~ normal(0, 1);
-  alpha_poca ~ normal(0, 1);
-  alpha_trcy ~ normal(0, 1);
-  alpha_vero ~ normal(0, 1);
-  alpha_peai ~ normal(0, 1);
-  alpha_other ~ normal(0, 1);
+  alpha_intra ~ normal(0, 10);
+  alpha_plde ~ normal(0, 10);
+  alpha_poca ~ normal(0, 10);
+  alpha_trcy ~ normal(0, 10);
+  alpha_vero ~ normal(0, 10);
+  alpha_peai ~ normal(0, 10);
+  alpha_other ~ normal(0, 10);
 
   // implement the biological model
   for(i in 1:N){
