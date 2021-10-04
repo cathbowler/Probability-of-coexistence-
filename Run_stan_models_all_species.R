@@ -65,56 +65,6 @@ plot(arca.posts, pars=c("alpha_intra", "alpha_plde", "alpha_poca", "alpha_trcy",
 plot(arca.posts, pars=c("lambda"), show_density = TRUE, ci_level = 0.5, outer_level = 0.95, fill_color = "grey") + ggtitle(expression(italic("A. calendula")))
 
 
-# DAGL --------------------------------------------------------------------
-SpData <- read.csv("Data/groups.Dagl.csv")
-SpData <- subset(SpData, select = c(total.fecundity, plot, intra, Arctotheca.calendula, Hyalosperma.glutinosum, 
-                                    Plantago.debilis, Podolepis.canescens, Trachymene.cyanopetala, Velleia.rosea,
-                                    Medicago.minima, Pentameris.airoides, other))
-SpData <- na.omit(SpData)
-N <- as.integer(dim(SpData)[1])
-P <- as.integer(16)
-Fecundity <- as.integer(SpData$total.fecundity)
-
-# check which species don't co-occur above the threshold of 4 obvservations (total, regardless of abundances)
-sum(as.integer(SpData$Arctotheca.calendula != 0))
-sum(as.integer(SpData$Hyalosperma.glutinosum != 0))
-sum(as.integer(SpData$Plantago.debilis != 0))
-sum(as.integer(SpData$Podolepis.canescens != 0))
-sum(as.integer(SpData$Trachymene.cyanopetala != 0))
-sum(as.integer(SpData$Velleia.rosea != 0))
-sum(as.integer(SpData$Medicago.minima != 0))
-sum(as.integer(SpData$Pentameris.airoides != 0))
-sum(as.integer(SpData$other != 0))
-# and remove them
-
-# Create the model matrix
-SpData$other <- SpData$other + SpData$Arctotheca.calendula + SpData$Hyalosperma.glutinosum 
-
-SpData <- subset(SpData, select = c(total.fecundity, plot, intra,
-                                    Plantago.debilis, Podolepis.canescens,  Trachymene.cyanopetala, Velleia.rosea,
-                                    Medicago.minima, Pentameris.airoides, other))
-ModelMatrix <- subset(SpData, select = c(intra, Plantago.debilis, Podolepis.canescens,  Trachymene.cyanopetala, Velleia.rosea,
-                                         Medicago.minima, Pentameris.airoides, other))
-ModelMatrix <- as.matrix(ModelMatrix)
-PlotData <- subset(SpData, select = plot)
-Plot <- rep(NA, nrow(ModelMatrix))
-for(i in 1:nrow(ModelMatrix)){
-  Plot[i] <- PlotData[i,1]
-}
-
-initials <- list(epsilon=rep(1,P), sigma = .01)
-initials1<- list(initials, initials, initials)
-
-PrelimFit <- stan(file = 'BH stan models/DAGL.stan', data = c("Fecundity", "N", "ModelMatrix", "P", "Plot"),
-                  iter = 6000, chains = 3, thin = 2, init = initials1)
-PrelimFit
-save(PrelimFit, file = "BH stan models/Dagl_posteriors.rdata")
-
-dagl.posts <- PrelimFit
-#plot(dagl.posts, pars=c("alpha_intra", "alpha_plde", "alpha_poca", "alpha_trcy", "alpha_vero", "alpha_medi", "alpha_peai",
-#                        "alpha_other"), show_density = TRUE, ci_level = 0.5, outer_level = 0.95, fill_color = "grey") + ggtitle(expression(italic("D. glochidiatus")))
-
-
 # HYGL ----------------------------------------------
 SpData <- read.csv("Data/groups.HYGL.csv")
 SpData <- subset(SpData, select = c(total.fecundity, plot, intra, Arctotheca.calendula, Daucus.glochidiatus,
@@ -493,9 +443,6 @@ vero.posts <- PrelimFit
 ## make plot of lambda and alpha posteriors for supplementary information ####
 library(ggplot2)
 library(cowplot)
-plot(dagl.posts, pars=c("lambda"), show_density = TRUE, ci_level = 0.5, outer_level = 0.95, fill_color = "grey") + ggtitle(expression(italic("D. glochidiatus")))+coord_cartesian(xlim = c(0, 360))
-
-aa <- plot(dagl.posts, pars=c("lambda"), show_density = TRUE, ci_level = 0.5, outer_level = 0.95, fill_color = "grey") + ggtitle(expression(italic("D. glochidiatus")))+coord_cartesian(xlim = c(0, 360))
 bb <- plot(hygl.posts, pars=c("lambda"), show_density = TRUE, ci_level = 0.5, outer_level = 0.95, fill_color = "grey") + ggtitle(expression(italic("H. glutinosum")))+coord_cartesian(xlim = c(0, 360))
 cc <- plot(plde.posts, pars=c("lambda"), show_density = TRUE, ci_level = 0.5, outer_level = 0.95, fill_color = "grey") + ggtitle(expression(italic("P. debilis")))+coord_cartesian(xlim = c(0, 360))
 dd <- plot(poca.posts, pars=c("lambda"), show_density = TRUE, ci_level = 0.5, outer_level = 0.95, fill_color = "grey") + ggtitle(expression(italic("*P. canescens")))
@@ -505,14 +452,12 @@ gg <- plot(arca.posts, pars=c("lambda"), show_density = TRUE, ci_level = 0.5, ou
 hh <- plot(medi.posts, pars=c("lambda"), show_density = TRUE, ci_level = 0.5, outer_level = 0.95, fill_color = "grey") + ggtitle(expression(italic("M. minima")))+coord_cartesian(xlim = c(0, 360))
 ii <- plot(peai.posts, pars=c("lambda"), show_density = TRUE, ci_level = 0.5, outer_level = 0.95, fill_color = "grey") + ggtitle(expression(italic("P. airoides")))+coord_cartesian(xlim = c(0, 360))
 
-posts1 <- plot_grid(aa, bb, cc, dd, ee, ff, gg, hh, ii, nrow = 5)
+posts1 <- plot_grid(bb, cc, dd, ee, ff, gg, hh, ii, nrow = 4)
 pdf("Figures/lambda_posteriors_supp.pdf", width = 10, height=13)
 posts1
 dev.off()
 
 # make the x axis the same
-a <- plot(dagl.posts, pars=c("alpha_intra", "alpha_plde", "alpha_poca", "alpha_trcy", "alpha_vero", "alpha_medi", "alpha_peai",
-                        "alpha_other"), show_density = TRUE, ci_level = 0.5, outer_level = 0.95, fill_color = "grey") + ggtitle(expression(italic("D. glochidiatus")))+coord_cartesian(xlim = c(0, 1.2))
 b <- plot(hygl.posts, pars=c("alpha_intra", "alpha_arca", "alpha_plde", "alpha_poca", "alpha_trcy", "alpha_vero", "alpha_medi", "alpha_peai",
                         "alpha_other"), show_density = TRUE, ci_level = 0.5, outer_level = 0.95, fill_color = "grey") + ggtitle(expression(italic("H. glutinosum")))+coord_cartesian(xlim = c(0, 1.2))
 c <- plot(plde.posts, pars=c("alpha_intra", "alpha_hygl", "alpha_poca",  "alpha_vero", "alpha_peai",
@@ -524,13 +469,13 @@ e <- plot(trcy.posts, pars=c("alpha_intra", "alpha_plde", "alpha_poca", "alpha_v
 f <- plot(vero.posts, pars=c("alpha_intra", "alpha_hygl", "alpha_poca", "alpha_trcy", "alpha_peai",
                         "alpha_other"), show_density = TRUE, ci_level = 0.5, outer_level = 0.95, fill_color = "grey") + ggtitle(expression(italic("G. rosea")))+coord_cartesian(xlim = c(0, 1.2))
 g <- plot(arca.posts, pars=c("alpha_intra", "alpha_plde", "alpha_poca", "alpha_trcy", "alpha_vero",  "alpha_peai",
-                        "alpha_other"), show_density = TRUE, ci_level = 0.5, outer_level = 0.95, fill_color = "grey") + ggtitle(expression(italic("*A. calendula")))
+                        "alpha_other"), show_density = TRUE, ci_level = 0.5, outer_level = 0.95, fill_color = "grey") + ggtitle(expression(italic("*A. calendula")))+coord_cartesian(xlim = c(0, 7.5))
 h <- plot(medi.posts, pars=c("alpha_intra", "alpha_hygl", "alpha_poca", "alpha_vero", "alpha_peai",
                         "alpha_other"), show_density = TRUE, ci_level = 0.5, outer_level = 0.95, fill_color = "grey") + ggtitle(expression(italic("M. minima")))+coord_cartesian(xlim = c(0, 1.2))
 i <- plot(peai.posts, pars=c("alpha_intra", "alpha_arca", "alpha_hygl", "alpha_plde", "alpha_poca", "alpha_trcy", "alpha_vero", "alpha_medi",
                         "alpha_other"), show_density = TRUE, ci_level = 0.5, outer_level = 0.95, fill_color = "grey") + ggtitle(expression(italic("P. airoides")))+coord_cartesian(xlim = c(0, 1.2))
 
-posts <- plot_grid(a,b,c,d,e,f,g,h,i, nrow = 5)
+posts <- plot_grid(b,c,d,e,f,g,h,i, nrow = 4)
 pdf("Figures/alpha_posteriors_supp.pdf", width = 10, height=13)
 posts
 dev.off()

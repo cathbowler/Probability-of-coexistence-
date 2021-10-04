@@ -3,9 +3,9 @@
 ###############################################################
 library(coda)
 library(rstan)
-#source("BH.nolottery.ldgr.pairwise.R")
 source("Invasion.approach.revisions.R")
 source("Invasion.approach.ldgr.means.R")
+#source("Invasions.approach.revisions.novar.R")
 
 species.names = c("dagl", "hygl", "plde", "poca", "trcy", "vero", "arca", "medi", "peai")
 cols = c("#F8766D","#E7861B", "#95A900", "#39B600", "#00C19C",
@@ -27,6 +27,7 @@ tgreen <- do.transparent("seagreen4", 100)
 # MUTUAL INVASION PAIRS
 # plot ####
 pdf("Figures/Nolot_Mutual_invasion_pairwise.pdf")
+#pdf("Figures/Nolot_Mutual_invasion_pairwise_no_time_var.pdf")
 par(mfrow=c(5,3), mar=c(2,1.5,2,1.5), oma=c(3,3,3,3))
 
 #hygl and plde
@@ -84,6 +85,21 @@ species.names = c("dagl", "hygl", "plde", "poca", "trcy", "vero", "arca", "medi"
 mtext("case 2", side=3, adj=0)
 legend("topright", legend=c(expression(italic("P. airoides")), expression(italic("P. canescens"))), col=c(cols[9], cols[4]),lwd=2, lty=1, bty="n")
 
+# arca and peai
+means <- c(mean.arca.into.peai, mean.peai.into.arca)
+plot(density(nolot.arca.into.peai, na.rm = T), col=cols[7], main ="", lwd=2,
+     xlim=c(-1,5), ylim=c(0,5), xlab="")
+lines(density(nolot.peai.into.arca, na.rm = T), col=cols[9], lwd=2)
+abline(v=0, lty=2)
+points(x=means, y=rep(0,2),  col=cols[c(7,9)], pch=19)
+mtext("case 5", side=3, adj=0)
+legend("topright", legend=c(expression(italic("A. calendula")), expression(italic("P. airdoides"))), col=c(cols[7], cols[9]),lwd=2, lty=1, bty="n")
+
+auc <- ecdf(nolot.arca.into.peai[which(nolot.arca.into.peai<HPDinterval((as.mcmc(as.numeric(nolot.arca.into.peai))))[,2])])
+1-auc(0)
+auc <- ecdf(nolot.peai.into.arca[which(nolot.peai.into.arca<HPDinterval((as.mcmc(as.numeric(nolot.peai.into.arca))))[,2])])
+1-auc(0)
+
 # hygl and medi
 means <- c(mean.hygl.into.medi, mean.medi.into.hygl)
 plot(density(nolot.hygl.into.medi, na.rm = T), col=cols[2], main ="", lwd=2,
@@ -104,20 +120,6 @@ auc <- ecdf(nolot.hygl.into.medi)
 auc <- ecdf(nolot.medi.into.hygl)
 1-auc(0)
 
-# arca and peai
-means <- c(mean.arca.into.peai, mean.peai.into.arca)
-plot(density(nolot.arca.into.peai, na.rm = T), col=cols[7], main ="", lwd=2,
-     xlim=c(-1,5), ylim=c(0,5), xlab="")
-lines(density(nolot.peai.into.arca, na.rm = T), col=cols[9], lwd=2)
-abline(v=0, lty=2)
-points(x=means, y=rep(0,2),  col=cols[c(7,9)], pch=19)
-mtext("case 3", side=3, adj=0)
-legend("topright", legend=c(expression(italic("A. calendula")), expression(italic("P. airdoides"))), col=c(cols[7], cols[9]),lwd=2, lty=1, bty="n")
-
-auc <- ecdf(nolot.arca.into.peai[which(nolot.arca.into.peai<HPDinterval((as.mcmc(as.numeric(nolot.arca.into.peai))))[,2])])
-1-auc(0)
-auc <- ecdf(nolot.peai.into.arca[which(nolot.peai.into.arca<HPDinterval((as.mcmc(as.numeric(nolot.peai.into.arca))))[,2])])
-1-auc(0)
 
 # plde and poca
 means <- c(mean.plde.into.poca, mean.poca.into.plde)
@@ -236,12 +238,13 @@ auc <- ecdf(nolot.poca.into.vero)
 # summary barplot
 par(mar=c(2,4,1.5,1.5))
 case2 <- 1/14
-case3 <- 10/14
+case3 <- 9/14
 case4 <- 1/14
+case5 <- 1/14
 case6 <- 2/14
-cases <- cbind(case2, case3, case4, case6)
+cases <- cbind(case2, case3, case4, case5, case6)
 a <- barplot(cases, ylab = "Fraction of sp. pairs", xaxt="n")
-axis(1, at=a, tck=-0.01, labels=c("case \n 2", "case \n 3", "case \n 4", "case\n  6"), cex.axis=0.9)
+axis(1, at=a, tck=-0.01, labels=c("case \n 2", "case \n 3", "case \n 4", "case \n 5", "case\n  6"), cex.axis=0.9)
 
 dev.off()
 

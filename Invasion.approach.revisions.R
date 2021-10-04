@@ -109,7 +109,6 @@ invader.abund <- 1
 
 
 # create all of our LDGR matrices
-nolot.dagl.into.medi <- matrix(NA, nrow=runs)
 nolot.hygl.into.medi <- matrix(NA, nrow=runs)
 nolot.peai.into.medi <- matrix(NA, nrow=runs)
 
@@ -120,12 +119,6 @@ for (r in 1:runs) {
     germ_j <- germination$medi[p]
     #lived.medi <- min(germ_j*Nj, ag_carrying$x[y])
     lived.medi <- germ_j*Nj
-    
-    # invade dagl
-    dagl_tp1 <- (1-germination$dagl[p])*survival$dagl[p]*invader.abund + 
-      invader.abund*germination$dagl[p]*dagl$lambda[p]/(1+dagl$alpha_medi[p]*lived.medi)
-    # calculate LDGR of dagl
-    nolot.dagl.into.medi[r] <- log(dagl_tp1/invader.abund)
     
     # invade hygl
     hygl_tp1 <- (1-germination$hygl[p])*survival$hygl[p]*invader.abund + 
@@ -149,7 +142,6 @@ invader.abund <- 1
 # create all of our LDGR matrices
 #arca, dagl, hygl, medi, plde, poca, trcy, vero
 nolot.arca.into.peai <- matrix(NA, nrow=runs)
-nolot.dagl.into.peai <- matrix(NA, nrow=runs)
 nolot.hygl.into.peai <- matrix(NA, nrow=runs)
 nolot.medi.into.peai <- matrix(NA, nrow=runs)
 nolot.plde.into.peai <- matrix(NA, nrow=runs)
@@ -173,13 +165,7 @@ for (r in 1:runs) {
     # calculate LDGR of arca
     nolot.arca.into.peai[r] <- log(arca_tp1/invader.abund)
     
-    # invade dagl
-    dagl_tp1 <- (1-germination$dagl[p])*survival$dagl[p]*invader.abund + 
-      invader.abund*germination$dagl[p]*dagl$lambda[p]/(1+dagl$alpha_peai[p]*lived.peai)
-    # calculate LDGR of dagl
-    nolot.dagl.into.peai[r] <- log(dagl_tp1/invader.abund)
-    
-    # invade hygl
+     # invade hygl
     hygl_tp1 <- (1-germination$hygl[p])*survival$hygl[p]*invader.abund + 
       invader.abund*germination$hygl[p]*hygl$lambda[p]/(1+hygl$alpha_peai[p]*lived.peai)
     # calculate LDGR of hygl
@@ -227,7 +213,6 @@ invader.abund <- 1
 #arca, dagl, medi, peai, poca, trcy
 #nolot.arca.into.plde <- matrix(NA, nrow=runs, ncol=posteriors)
 nolot.arca.into.plde <- matrix(NA, nrow=runs)
-nolot.dagl.into.plde <- matrix(NA, nrow=runs)
 nolot.hygl.into.plde <- matrix(NA, nrow=runs)
 nolot.peai.into.plde <- matrix(NA, nrow=runs)
 nolot.poca.into.plde <- matrix(NA, nrow=runs)
@@ -247,12 +232,6 @@ for (r in 1:runs) {
       invader.abund*germination$arca[p]*arca$lambda[p]/(1+arca$alpha_plde[p]*lived.plde)
     # calculate LDGR of arca
     nolot.arca.into.plde[r] <- log(arca_tp1/invader.abund)
-    
-    # invade dagl
-    dagl_tp1 <- (1-germination$dagl[p])*survival$dagl[p]*invader.abund + 
-      invader.abund*germination$dagl[p]*dagl$lambda[p]/(1+dagl$alpha_plde[p]*lived.plde)
-    # calculate LDGR of dagl
-    nolot.dagl.into.plde[r] <- log(dagl_tp1/invader.abund)
     
     # invade hygl
     hygl_tp1 <- (1-germination$hygl[p])*survival$hygl[p]*invader.abund + 
@@ -287,7 +266,6 @@ invader.abund <- 1
 # create all of our LDGR matrices
 # arca, dagl, medi, peai, plde, trcy, vero
 nolot.arca.into.poca <- matrix(NA, nrow=runs)
-nolot.dagl.into.poca <- matrix(NA, nrow=runs)
 nolot.medi.into.poca <- matrix(NA, nrow=runs)
 nolot.peai.into.poca <- matrix(NA, nrow=runs)
 nolot.plde.into.poca <- matrix(NA, nrow=runs)
@@ -310,13 +288,7 @@ for (r in 1:runs) {
     # calculate LDGR of arca
     nolot.arca.into.poca[r] <- log(arca_tp1/invader.abund)
     
-    # invade dagl
-    dagl_tp1 <- (1-germination$dagl[p])*survival$dagl[p]*invader.abund + 
-      invader.abund*germination$dagl[p]*dagl$lambda[p]/(1+dagl$alpha_poca[p]*lived.poca)
-    # calculate LDGR of dagl
-    nolot.dagl.into.poca[r] <- log(dagl_tp1/invader.abund)
-    
-    # invade medi
+     # invade medi
     medi_tp1 <- (1-germination$medi[p])*survival$medi[p]*invader.abund + 
       invader.abund*germination$medi[p]*medi$lambda[p]/(1+medi$alpha_poca[p]*lived.poca)
     # calculate LDGR of medi
@@ -355,7 +327,6 @@ invader.abund <- 1
 # create all of our LDGR matrices
 # arca, dagl, peai, plde, poca
 nolot.arca.into.trcy <- matrix(NA, nrow=runs)
-nolot.dagl.into.trcy <- matrix(NA, nrow=runs)
 nolot.peai.into.trcy <- matrix(NA, nrow=runs)
 nolot.poca.into.trcy <- matrix(NA, nrow=runs)
 
@@ -373,13 +344,7 @@ for (r in 1:runs) {
     # calculate LDGR of arca
     nolot.arca.into.trcy[r] <- log(arca_tp1/invader.abund)
     
-    # invade dagl
-    dagl_tp1 <- (1-germination$dagl[p])*survival$dagl[p]*invader.abund + 
-      invader.abund*germination$dagl[p]*dagl$lambda[p]/(1+dagl$alpha_trcy[p]*lived.trcy)
-    # calculate LDGR of dagl
-    nolot.dagl.into.trcy[r] <- log(dagl_tp1/invader.abund)
-    
-    # invade peai
+      # invade peai
     peai_tp1 <- (1-germination$peai[p])*survival$peai[p]*invader.abund + 
       invader.abund*germination$peai[p]*peai$lambda[p]/(1+peai$alpha_trcy[p]*lived.trcy)
     # calculate LDGR of dagl
@@ -400,7 +365,6 @@ invader.abund <- 1
 # create all of our LDGR matrices
 # arca, dagl, hygl, medi, peai, plde, poca, trcy, vero
 nolot.arca.into.vero <- matrix(NA, nrow=runs)
-nolot.dagl.into.vero <- matrix(NA, nrow=runs)
 nolot.hygl.into.vero <- matrix(NA, nrow=runs)
 nolot.medi.into.vero <- matrix(NA, nrow=runs)
 nolot.peai.into.vero <- matrix(NA, nrow=runs)
@@ -423,13 +387,7 @@ for (r in 1:runs) {
     # calculate LDGR of arca
     nolot.arca.into.vero[r] <- log(arca_tp1/invader.abund)
     
-    # invade dagl
-    dagl_tp1 <- (1-germination$dagl[p])*survival$dagl[p]*invader.abund + 
-      invader.abund*germination$dagl[p]*dagl$lambda[p]/(1+dagl$alpha_vero[p]*lived.vero)
-    # calculate LDGR of dagl
-    nolot.dagl.into.vero[r] <- log(dagl_tp1/invader.abund)
-    
-    # invade hygl
+     # invade hygl
     hygl_tp1 <- (1-germination$hygl[p])*survival$hygl[p]*invader.abund + 
       invader.abund*germination$hygl[p]*hygl$lambda[p]/(1+hygl$alpha_vero[p]*lived.vero)
     # calculate LDGR of hygl

@@ -1,68 +1,10 @@
-sp <- 9
+sp <- 8
 library(coda)
 library(rstan)
+source("Bayes.data.R")
 source("BH.equalizing.stabilizing.R")
-# removing MOMO for now
 
-#sp_list <- c(dagl, gite, hygl, plde, 
-#             poca, trcy, vero, arca, medi, momo, peai)
-
-#setwd("/Users/lash1937/Dropbox/Shared/Bayesian data - Cath Collaboration/Updated Coexistence code")
-#setwd("/Users/catherinebowler/Dropbox/Bayesian data - Cath Collaboration/Coexistence code")
-load("BH stan models/Arca_posteriors.rdata")
-arca <- rstan::extract(PrelimFit)
-remove(PrelimFit)
-
-load("BH stan models/Dagl_posteriors.rdata")
-dagl <- rstan::extract(PrelimFit)
-remove(PrelimFit)
-
-load("BH stan models//Hygl_posteriors.rdata")
-hygl <- rstan::extract(PrelimFit)
-remove(PrelimFit)
-
-load("BH stan models//Medi_posteriors.rdata")
-medi <- rstan::extract(PrelimFit)
-remove(PrelimFit)
-
-#load("Momo/Momo_posteriors.rdata")
-#momo <- extract(PrelimFit)
-#remove(PrelimFit)
-
-load("BH stan models//Peai_posteriors.rdata")
-peai <- rstan::extract(PrelimFit)
-remove(PrelimFit)
-
-load("BH stan models//Plde_posteriors.rdata")
-plde <- rstan::extract(PrelimFit)
-remove(PrelimFit)
-
-load("BH stan models//Poca_posteriors.rdata")
-poca <- rstan::extract(PrelimFit)
-remove(PrelimFit)
-
-load("BH stan models//Trcy_posteriors.rdata")
-trcy <- rstan::extract(PrelimFit)
-remove(PrelimFit)
-
-load("BH stan models//Vero_posteriors.rdata")
-vero <- rstan::extract(PrelimFit)
-remove(PrelimFit)
-
-load("SurvivalAndGermination/Germination.rdata")
-germ <- rstan::extract(PrelimFit)
-germ<-as.data.frame(germ)
-remove(PrelimFit)
-
-load("SurvivalAndGermination/Survival.rdata")
-surv <- rstan::extract(PrelimFit)
-surv<-as.data.frame(surv)
-remove(PrelimFit)
-
-germination <- data.frame(dagl=germ$p.1, hygl=germ$p.2, plde=germ$p.3, poca=germ$p.4, trcy=germ$p.5, 
-                          vero=germ$p.6, arca=germ$p.7, medi=germ$p.8, peai=germ$p.9)
-
-dagl[["germination"]] <- germ$p.1
+#dagl[["germination"]] <- germ$p.1
 hygl[["germination"]] <- germ$p.2
 plde[["germination"]] <- germ$p.3
 poca[["germination"]] <- germ$p.4
@@ -72,10 +14,8 @@ arca[["germination"]] <- germ$p.7
 medi[["germination"]] <- germ$p.8
 peai[["germination"]] <- germ$p.9
 
-survival <- data.frame(dagl=surv$p.1, hygl=surv$p.2, plde=surv$p.3, poca=surv$p.4, trcy=surv$p.5, 
-                       vero=surv$p.6, arca=surv$p.7, medi=surv$p.8, peai=surv$p.9)
 
-dagl[["survival"]] <-surv$p.1
+#dagl[["survival"]] <-surv$p.1
 hygl[["survival"]] <- surv$p.2
 plde[["survival"]] <-surv$p.3
 poca[["survival"]] <- surv$p.4
@@ -257,17 +197,17 @@ lines(xseq, log(yseq), col="grey", lwd=2)
 polygon(c(xseq, rev(xseq)), c(log(yseq), rep(0, length(xseq))), col=tgreen)
 mtext(pairs[9], side=3, cex = 0.7)
 
-plot(corrected.stabilizing[,3], log(equalizing[,3]), pch=16, col=alpha("skyblue", 0.5), xlab="Stabilizing ND", ylab="Log FD", xlim=c(0,1), ylim=c(0,12))
-points(mean.corrected.stabilizing[3], log(mean.equalizing[3]), pch=19, col="black")
-lines(xseq, log(yseq), col="grey", lwd=2)
-polygon(c(xseq, rev(xseq)), c(log(yseq), rep(0, length(xseq))), col=tgreen)
-mtext(pairs[3], side=3, cex = 0.7)
-
 plot(corrected.stabilizing[,1], log(equalizing[,1]), pch=16, col=alpha("skyblue", 0.5), xlab="Stabilizing ND", ylab="Log FD", xlim=c(0,1), ylim=c(0,12))
 points(mean.corrected.stabilizing[1], log(mean.equalizing[1]), pch=19, col="black")
 lines(xseq, log(yseq), col="grey", lwd=2)
 polygon(c(xseq, rev(xseq)), c(log(yseq), rep(0, length(xseq))), col=tgreen)
 mtext(pairs[1], side=3, cex = 0.7)
+
+plot(corrected.stabilizing[,3], log(equalizing[,3]), pch=16, col=alpha("skyblue", 0.5), xlab="Stabilizing ND", ylab="Log FD", xlim=c(0,1), ylim=c(0,12))
+points(mean.corrected.stabilizing[3], log(mean.equalizing[3]), pch=19, col="black")
+lines(xseq, log(yseq), col="grey", lwd=2)
+polygon(c(xseq, rev(xseq)), c(log(yseq), rep(0, length(xseq))), col=tgreen)
+mtext(pairs[3], side=3, cex = 0.7)
 
 plot(corrected.stabilizing[,12], log(equalizing[,12]), pch=16, col=alpha("skyblue", 0.5), xlab="Stabilizing ND", ylab="Log FD", xlim=c(0,1), ylim=c(0,12))
 points(mean.corrected.stabilizing[12], log(mean.equalizing[12]), pch=19, col="black")

@@ -9,7 +9,6 @@ library(rstan)
 library(reshape2)
 library(ggplot2)
 
-
 sp <- 9
 # removing MOMO for now
 
@@ -43,11 +42,11 @@ lambdas=arca$lambda
 intras=arca$alpha_intra
 
 # lottery model
-#for (r in 1:runs){
+for (r in 1:runs){ # then make runs=4500 to systematically go through each posterior 
+ # p <- r
   for (t in 1:(time-1)) {
-    p <- sample(seq(1, 4500),1) # germ
+    p <- sample(seq(1, 4500),1) 
     #for (t in 1:(time-1)) { 
-    for (r in 1:runs){ 
     # calculate how many seeds remain in the seedbank
     seedbank <- (1-germ[p])*surv[p]*seed.abundances[r,t]
     
@@ -78,48 +77,6 @@ abundances.arca <- seed.abundances
 save(abundances.arca, file="nolottery.abundance.arca.rdata")
 remove(seed.abundances)
 
-#DAGL-----------------------------------------------
-seed.abundances <- matrix(data=NA,nrow=runs,ncol=time)
-seed.abundances[,1] <- 2
-
-germ=germination$dagl
-surv=survival$dagl
-lambdas=dagl$lambda
-intras=dagl$alpha_intra
-#intras <- ifelse(intras > 0, 0, intras)
-
-# lottery model
-#for (r in 1:runs){
-  for (t in 1:(time-1)) {
-    p <- sample(seq(1, 4500),1) # germ
-    #for (t in 1:(time-1)) {
-    for (r in 1:runs){
-    # calculate how many seeds remain in the seedbank
-    seedbank <- (1-germ[p])*surv[p]*seed.abundances[r,t]
-    
-    # calculate germination from the seedbank
-    germinated <- seed.abundances[r,t]*germ[p]
-    
-    # calculate how many germinants live that year
-    #lived <- min(germinated, ag_carrying$x[y])
-    lived = germinated
-    
-    # calculate how many seeds are produced by living germinants 
-    new.seeds <- do.lottery.new.seeds(lived=lived, lambda=lambdas[p], alpha_intra=intras[p])
-    
-    # add above ground seeds produced to those that survived and didn't germinate from the seedbank
-    seed.abundances[r, t+1] <- seedbank + new.seeds
-  }
-}
-
-data.melt.dagl <- melt(seed.abundances, varnames = c("run", "time"), value.name = "abundance")
-spline.dagl <- as.data.frame(spline(data.melt.dagl$time, data.melt.dagl$abundance))
-
-dagl.equ.mean <- mean(seed.abundances[,200])
-
-abundances.dagl <- seed.abundances
-save(abundances.dagl, file="nolottery.abundance.dagl.rdata")
-remove(seed.abundances)
 
 # HYGL ---------------------------------------------
 seed.abundances <- matrix(data=NA,nrow=runs,ncol=time)
@@ -132,12 +89,10 @@ intras=hygl$alpha_intra
 #intras <- ifelse(intras > 0, 0, intras)
 # set x to r (r being 4500), then don't use sample, just us x everywhere 
 # lottery model
-#for (r in 1:runs){
- for (t in 1:(time-1)) {
-    p <- sample(seq(1, 4500),1) # germ
-
-    #for (t in 1:(time-1)) {
-    for (r in 1:runs){
+for (r in 1:runs){ # then make runs=4500 to systematically go through each posterior 
+  # p <- r
+  for (t in 1:(time-1)) {
+    p <- sample(seq(1, 4500),1) 
     # calculate how many seeds remain in the seedbank
     seedbank <- (1-germ[p])*surv[p]*seed.abundances[r,t]
     
@@ -175,12 +130,10 @@ lambdas=plde$lambda
 intras=plde$alpha_intra
 
 # lottery model
-#for (r in 1:runs){
+for (r in 1:runs){ # then make runs=4500 to systematically go through each posterior 
+  # p <- r
   for (t in 1:(time-1)) {
-    p <- sample(seq(1, 4500),1) # germ
-
-    #for (t in 1:(time-1)) {
-    for (r in 1:runs){
+    p <- sample(seq(1, 4500),1) 
     # calculate how many seeds remain in the seedbank
     seedbank <- (1-germ[p])*surv[p]*seed.abundances[r,t]
     
@@ -219,25 +172,22 @@ intras=poca$alpha_intra
 #intras <- ifelse(intras > 0, 0, intras)
 
 # lottery model
-#for (r in 1:runs){
+for (r in 1:runs){ # then make runs=4500 to systematically go through each posterior 
+  # p <- r
   for (t in 1:(time-1)) {
-    x1 <- sample(seq(1, 4500),1) # germ
-    x2 <- sample(seq(1, 4500),1) # surv
-    x3 <- sample(seq(1, 4500),1) # lambdas, intras
-    #for (t in 1:(time-1)) {
-    for (r in 1:runs){
+    p <- sample(seq(1, 4500),1) 
     # calculate how many seeds remain in the seedbank
-    seedbank <- (1-germ[x1])*surv[x2]*seed.abundances[r,t]
+    seedbank <- (1-germ[p])*surv[p]*seed.abundances[r,t]
     
     # calculate germination from the seedbank
-    germinated <- seed.abundances[r,t]*germ[x1]
+    germinated <- seed.abundances[r,t]*germ[p]
     
     # calculate how many germinants live that year
     #lived <- min(germinated, ag_carrying$x[y])
     lived = germinated
     
     # calculate how many seeds are produced by living germinants 
-    new.seeds <- do.lottery.new.seeds(lived=lived, lambda=lambdas[x3], alpha_intra=intras[x3])
+    new.seeds <- do.lottery.new.seeds(lived=lived, lambda=lambdas[p], alpha_intra=intras[p])
     
     # add above ground seeds produced to those that survived and didn't germinate from the seedbank
     seed.abundances[r, t+1] <- seedbank + new.seeds
@@ -264,12 +214,10 @@ intras=trcy$alpha_intra
 #intras <- ifelse(intras > 0, 0, intras)
 
 # lottery model
-#for (r in 1:runs){
+for (r in 1:runs){ # then make runs=4500 to systematically go through each posterior 
+  # p <- r
   for (t in 1:(time-1)) {
-    p <- sample(seq(1, 4500),1) # germ
-
-    #for (t in 1:(time-1)) {
-    for (r in 1:runs){
+    p <- sample(seq(1, 4500),1) 
     # calculate how many seeds remain in the seedbank
     seedbank <- (1-germ[p])*surv[p]*seed.abundances[r,t]
     
@@ -296,6 +244,7 @@ trcy.equ.mean <- mean(seed.abundances[,200])
 abundances.trcy <- seed.abundances
 save(abundances.trcy, file="nolottery.abundance.trcy.rdata")
 remove(seed.abundances)
+
 # VERO ---------------------------------------
 seed.abundances <- matrix(data=NA,nrow=runs,ncol=time)
 seed.abundances[,1] <- 2
@@ -306,11 +255,10 @@ lambdas=vero$lambda
 intras=vero$alpha_intra
 
 # lottery model
-#for (r in 1:runs){
+for (r in 1:runs){ # then make runs=4500 to systematically go through each posterior 
+  # p <- r
   for (t in 1:(time-1)) {
-    p <- sample(seq(1, 4500),1) # germ
-    #for (t in 1:(time-1)) { 
-    for (r in 1:runs){
+    p <- sample(seq(1, 4500),1) 
     # calculate how many seeds remain in the seedbank
     seedbank <- (1-germ[p])*surv[p]*seed.abundances[r,t]
     
@@ -349,12 +297,10 @@ lambdas=medi$lambda
 intras=medi$alpha_intra
 
 # lottery model
-#for (r in 1:runs){
+for (r in 1:runs){ # then make runs=4500 to systematically go through each posterior 
+  # p <- r
   for (t in 1:(time-1)) {
-    p <- sample(seq(1, 4500),1) # germ
-
-    #for (t in 1:(time-1)) { 
-    for (r in 1:runs){
+    p <- sample(seq(1, 4500),1) 
     # calculate how many seeds remain in the seedbank
     seedbank <- (1-germ[p])*surv[p]*seed.abundances[r,t]
     
@@ -392,12 +338,10 @@ lambdas=peai$lambda
 intras=peai$alpha_intra
 
 # lottery model
-#for (r in 1:runs){
+for (r in 1:runs){ # then make runs=4500 to systematically go through each posterior 
+  # p <- r
   for (t in 1:(time-1)) {
-    p <- sample(seq(1, 4500),1)
-    #for (t in 1:(time-1)) {
-    for (r in 1:runs){
-    
+    p <- sample(seq(1, 4500),1) 
     # calculate how many seeds remain in the seedbank
     seedbank <- (1-germ[p])*surv[p]*seed.abundances[r,t]
     
@@ -432,20 +376,17 @@ plot(spline.arca, main=expression(italic("A. calendula")))
 mtext(side=2, line=3, "abundance")
 plot(spline.medi, main=expression(italic("M. minima")))
 plot(spline.peai, main=expression(italic("P. airoides")))
-plot(spline.dagl, main=expression(italic("D. glochidiatus")))
-mtext(side=2, line=3, "abundance")
 plot(spline.hygl, main=expression(italic("H. glutinosum")))
+mtext(side=2, line=3, "abundance")
 plot(spline.plde, main=expression(italic("P. debilis")))
 plot(spline.poca, main=expression(italic("P. canescens")))
 mtext(side=1, line=3, "time (years)")
-mtext(side=2, line=3, "abundance")
 plot(spline.trcy, main=expression(italic("T. cyanopetala")))
+mtext(side=2, line=3, "abundance")
 mtext(side=1, line=3, "time (years)")
 plot(spline.vero, main=expression(italic("G. rosea")))
 mtext(side=1, line=3, "time (years)")
 dev.off()
-
-pdf("Figures/supp.single.sp.200.pdf")
 
 #####
 pdf("Figures/single.sp.t=200.pdf")
@@ -454,19 +395,19 @@ plot(density(abundances.arca[,200]), main=expression(italic("A. calendula")))
 mtext(side=2, line=3, "density")
 plot(density(abundances.medi[,200]), main=expression(italic("M. minima")))
 plot(density(abundances.peai[,200]), main=expression(italic("P. airoides")))
-plot(density(abundances.dagl[,200]), main=expression(italic("D. glochidiatus")))
-mtext(side=2, line=3, "density")
 plot(density(abundances.hygl[,200]), main=expression(italic("H. glutinosum")))
+mtext(side=2, line=3, "density")
 plot(density(abundances.plde[,200]), main=expression(italic("P. debilis")))
 plot(density(abundances.poca[,200]), main=expression(italic("P. canescens")))
-mtext(side=2, line=3, "density")
 plot(density(abundances.trcy[,200]), main=expression(italic("T. cyanopetala")))
 mtext(side=1, line=3, "steady state population size")
+mtext(side=2, line=3, "density")
 plot(density(abundances.vero[,200]), main=expression(italic("G. rosea")))
+mtext(side=1, line=3, "steady state population size")
 dev.off()
 
 # save the t200 mean values 
-t200.mean.vals <- c(dagl.equ.mean, hygl.equ.mean, plde.equ.mean, poca.equ.mean,
+t200.mean.vals <- c(hygl.equ.mean, plde.equ.mean, poca.equ.mean,
                     trcy.equ.mean, vero.equ.mean, arca.equ.mean, medi.equ.mean,
                     peai.equ.mean)
 save(t200.mean.vals, file="t200.mean.values")
