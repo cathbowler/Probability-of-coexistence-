@@ -1,6 +1,8 @@
-### Code pairwise coexistence #### This should run fine once I get Trcy working to get species to equilibrium 
-# then will need to use separate scripts to pull out array values for each species to invade into (with the 
-# different neighbours present) And can add carrying capacity back in if numbers are huge. 
+##############################################################################################
+# This code simulates population growth to an equilibrium for each focal species, 
+# using the mean value of each parameter posterior 
+##############################################################################################
+
 rm(list=ls())
 # import data
 
@@ -11,15 +13,10 @@ library(ggplot2)
 
 
 sp <- 9
-# removing MOMO for now
 
 sp_list <- c("dagl", "hygl", "plde", 
              "poca", "trcy", "vero", "arca", "medi", "peai")
-#sp_list <- c(dagl, gite, hygl, plde, 
-#             poca, trcy, vero, arca, medi, momo, peai)
 
-#setwd("/Users/lash1937/Dropbox/Shared/Bayesian data - Cath Collaboration/Updated Coexistence code")
-#setwd("/Users/catherinebowler/Dropbox/Bayesian data - Cath Collaboration/Coexistence code")
 source("Bayes.data.R")
 # -----------------------------------------------------------------------------------------
 

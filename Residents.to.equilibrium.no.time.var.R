@@ -1,7 +1,7 @@
-### Code pairwise coexistence #### This should run fine once I get Trcy working to get species to equilibrium 
-# then will need to use separate scripts to pull out array values for each species to invade into (with the 
-# different neighbours present) And can add carrying capacity back in if numbers are huge. 
-# import data
+##############################################################################################
+# This code simulates population growth to an equilibrium for each focal species, 
+# NOT sampling the posterior values at each time step 
+##############################################################################################
 
 library(coda)
 library(rstan)
@@ -213,10 +213,10 @@ intras=trcy$alpha_intra
 #intras <- ifelse(intras > 0, 0, intras)
 
 # lottery model
-for (r in 1:runs){ # then make runs=4500 to systematically go through each posterior 
-   p <- r
-  for (t in 1:(time-1)) {
-   # p <- sample(seq(1, 4500),1) 
+  for (r in 1:runs){ # then make runs=4500 to systematically go through each posterior 
+   for (t in 1:(time-1)) {
+     p <- r
+    #p <- sample(seq(1, 4500),1) 
     # calculate how many seeds remain in the seedbank
     seedbank <- (1-germ[p])*surv[p]*seed.abundances[r,t]
     
@@ -255,9 +255,9 @@ intras=vero$alpha_intra
 
 # lottery model
 for (r in 1:runs){ # then make runs=4500 to systematically go through each posterior 
-   p <- r
+  # p <- r
   for (t in 1:(time-1)) {
-  #  p <- sample(seq(1, 4500),1) 
+    p <- sample(seq(1, 4500),1) 
     # calculate how many seeds remain in the seedbank
     seedbank <- (1-germ[p])*surv[p]*seed.abundances[r,t]
     
@@ -278,7 +278,6 @@ for (r in 1:runs){ # then make runs=4500 to systematically go through each poste
 
 data.melt.vero <- melt(seed.abundances, varnames = c("run", "time"), value.name = "abundance")
 spline.vero <- as.data.frame(spline(data.melt.vero$time, data.melt.vero$abundance))
-
 
 vero.equ.mean <- mean(seed.abundances[,200])
 
@@ -367,4 +366,48 @@ peai.equ.mean <- mean(seed.abundances[,200])
 abundances.peai.novar <- seed.abundances
 save(abundances.peai.novar, file="abundance.peai.novar.rdata")
 remove(seed.abundances)
+
+### SUPP PLOT ###
+pdf("Figures/supp.single.sp.equi_notime.pdf")
+par(mfrow=c(3,3), mar=c(2,2,2,2), oma=c(4,4,1,1))
+plot(spline.arca, main=expression(italic("A. calendula")))
+mtext(side=2, line=3, "abundance")
+plot(spline.medi, main=expression(italic("M. minima")))
+plot(spline.peai, main=expression(italic("P. airoides")))
+plot(spline.hygl, main=expression(italic("H. glutinosum")))
+mtext(side=2, line=3, "abundance")
+plot(spline.plde, main=expression(italic("P. debilis")))
+plot(spline.poca, main=expression(italic("P. canescens")))
+mtext(side=1, line=3, "time (years)")
+plot(spline.trcy, main=expression(italic("T. cyanopetala")))
+mtext(side=2, line=3, "abundance")
+mtext(side=1, line=3, "time (years)")
+plot(spline.vero, main=expression(italic("G. rosea")))
+mtext(side=1, line=3, "time (years)")
+dev.off()
+
+#####
+pdf("Figures/single.sp.t=200_notime.pdf")
+par(mfrow=c(3,3), mar=c(2,2,2,2), oma=c(4,4,1,1))
+plot(density(abundances.arca.novar[,200]), main=expression(italic("A. calendula")))
+mtext(side=2, line=3, "density")
+plot(density(abundances.medi.novar[,200]), main=expression(italic("M. minima")))
+plot(density(abundances.peai.novar[,200]), main=expression(italic("P. airoides")))
+plot(density(abundances.hygl.novar[,200]), main=expression(italic("H. glutinosum")))
+mtext(side=2, line=3, "density")
+plot(density(abundances.plde.novar[,200]), main=expression(italic("P. debilis")))
+plot(density(abundances.poca.novar[,200]), main=expression(italic("P. canescens")))
+plot(density(abundances.trcy.novar[,200]), main=expression(italic("T. cyanopetala")))
+mtext(side=1, line=3, "steady state population size")
+mtext(side=2, line=3, "density")
+plot(density(abundances.vero.novar[,200]), main=expression(italic("G. rosea")))
+mtext(side=1, line=3, "steady state population size")
+dev.off()
+
+# save the t200 mean values 
+t200.mean.vals <- c(hygl.equ.mean, plde.equ.mean, poca.equ.mean,
+                    trcy.equ.mean, vero.equ.mean, arca.equ.mean, medi.equ.mean,
+                    peai.equ.mean)
+save(t200.mean.vals, file="t200.mean.values")
+
 

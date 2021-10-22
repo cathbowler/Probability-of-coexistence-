@@ -1,13 +1,18 @@
-# Calculate pair-wise low-density growth rate calculations
-# load in Stan model fits
+##############################################################################################
+# This Code simulates pair-wise low-density growth rates where the posterior values have not 
+# been sampled through time 
+##############################################################################################
+
 sp <- 9
-# removing MOMO for now
 
 sp_list <- c("dagl", "hygl", "plde", 
              "poca", "trcy", "vero", "arca", "medi", "peai")
 
+# load in Stan model fits
 source("Bayes.data.R")
+# load in resident species population where the posterior values have not been sampled through time
 source("Residents.to.equilibrium.no.time.var.R")
+
 # LDGR into ARCA as resident ---------------------------
 arca.equilibrum <- abundances.arca.novar[,200]
 invader.abund <- 1 # start invader abundance at 1 (seed)
@@ -15,13 +20,16 @@ invader.abund <- 1 # start invader abundance at 1 (seed)
 # hygl, peai, plde, poca can all invade into arca (have enough data)
 
 runs=4500
+
 # create all of our LDGR matrices
 nolot.hygl.into.arca <- matrix(NA, nrow=runs)
 nolot.peai.into.arca <- matrix(NA, nrow=runs)
 nolot.poca.into.arca <- matrix(NA, nrow=runs)
 
+
 for (r in 1:runs) {
-  p <- sample(seq(1, 4500),1) 
+  #p <- sample(seq(1, 4500),1)
+  p <- r
   # calculate resident abundance
   Nj <- arca.equilibrum[r]
   germ_j <- germination$arca[p]
@@ -52,6 +60,8 @@ for (r in 1:runs) {
   # calculate LDGR of POCA
   nolot.poca.into.arca[r] <- log(poca_tp1/invader.abund)
   
+  # ratio approach 
+  
 }
 
 
@@ -66,7 +76,8 @@ nolot.plde.into.hygl <- matrix(NA, nrow=runs)
 nolot.vero.into.hygl <- matrix(NA, nrow=runs)
 
 for (r in 1:runs) {
-  p <- sample(seq(1, 4500),1) 
+  #p <- sample(seq(1, 4500),1) 
+  p<-r
   # calculate resident abundance
   Nj <- hygl.equilibrum[r]
   germ_j <- germination$hygl[p]
@@ -110,7 +121,8 @@ nolot.hygl.into.medi <- matrix(NA, nrow=runs)
 nolot.peai.into.medi <- matrix(NA, nrow=runs)
 
 for (r in 1:runs) {
-  p <- sample(seq(1, 4500),1) 
+  #p <- sample(seq(1, 4500),1) 
+  p <- r
   # calculate resident abundance
   Nj <- medi.equilibrum[r]
   germ_j <- germination$medi[p]
@@ -154,8 +166,8 @@ nolot.vero.into.peai <- matrix(NA, nrow=runs)
 
 
 for (r in 1:runs) {
-  p <- sample(seq(1, 4500),1) 
-  
+  #p <- sample(seq(1, 4500),1) 
+  p <- r
   # calculate resident abundance
   Nj <- peai.equilibrum[r]
   germ_j <- germination$peai[p]
@@ -228,8 +240,8 @@ nolot.poca.into.plde <- matrix(NA, nrow=runs)
 nolot.trcy.into.plde <- matrix(NA, nrow=runs)
 
 for (r in 1:runs) {
-  p <- sample(seq(1, 4500),1) 
-  
+  #p <- sample(seq(1, 4500),1) 
+  p <- r
   # calculate resident abundance
   Nj <- plde.equilibrum[r]
   germ_j <- germination$plde[p]
@@ -289,8 +301,8 @@ nolot.vero.into.poca <- matrix(NA, nrow=runs)
 
 
 for (r in 1:runs) {
-  p <- sample(seq(1, 4500),1) 
-  
+  #p <- sample(seq(1, 4500),1) 
+  p <- r
   # calculate resident abundance
   Nj <- poca.equilibrum[r]
   germ_j <- germination$poca[p]
@@ -352,7 +364,8 @@ nolot.peai.into.trcy <- matrix(NA, nrow=runs)
 nolot.poca.into.trcy <- matrix(NA, nrow=runs)
 
 for (r in 1:runs) {
-  p <- sample(seq(1, 4500),1) 
+  #p <- sample(seq(1, 4500),1) 
+  p <- r
   # calculate resident abundance
   Nj <- trcy.equilibrum[r]
   germ_j <- germination$trcy[p]
@@ -400,8 +413,8 @@ nolot.poca.into.vero <- matrix(NA, nrow=runs)
 nolot.trcy.into.vero <- matrix(NA, nrow=runs)
 
 for (r in 1:runs) {
-  p <- sample(seq(1, 4500),1) 
-  
+  #p <- sample(seq(1, 4500),1) 
+  p <- r
   # calculate resident abundance
   Nj <- vero.equilibrum[r]
   germ_j <- germination$vero[p]

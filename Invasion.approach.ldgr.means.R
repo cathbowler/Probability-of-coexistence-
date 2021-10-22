@@ -9,7 +9,6 @@ arca.equilibrum <- abundances.arca[200]
 invader.abund <- 1
 
 # hygl, peai, plde, poca
-#posteriors <- 100
 # create all of our LDGR matrices
 mean.hygl.into.arca <- rep(NA, runs)
 mean.peai.into.arca <- rep(NA, runs)
@@ -34,13 +33,6 @@ mean.poca.into.arca <- rep(NA, runs)
     peai_tp1 <- (1-mean(germination$peai))*mean(survival$peai)*invader.abund + 
       invader.abund*mean(germination$peai)*mean(peai$lambda)/(1+mean(peai$alpha_arca)*lived.arca)
     # calculate LDGR of PEAI
-    mean.peai.into.arca <- log(peai_tp1/invader.abund)
-    
-    # invade PLDE
-    #plde_tp1 <- (1-mean(germination$plde))*mean(survival$plde)*invader.abund + 
-    #  invader.abund*mean(germination$plde)*mean(plde$lambda)/(1+mean(plde$alpha_arca)*lived.arca)
-    # calculate LDGR of PEAI
-    #mean.plde.into.arca <- log(plde_tp1/invader.abund)
     
     # invade POCA
     poca_tp1 <- (1-mean(germination$poca))*mean(survival$poca)*invader.abund + 

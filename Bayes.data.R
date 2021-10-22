@@ -1,4 +1,7 @@
-# import data
+##############################################################################################
+# This code is used to load the Bayesian stan model fit posteriors 
+# this script can be called at the start of each subsequent script that uses this data 
+##############################################################################################
 
 library(coda)
 library(rstan)

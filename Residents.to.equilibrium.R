@@ -1,8 +1,9 @@
-### Code pairwise coexistence #### This should run fine once I get Trcy working to get species to equilibrium 
-# then will need to use separate scripts to pull out array values for each species to invade into (with the 
-# different neighbours present) And can add carrying capacity back in if numbers are huge. 
+##############################################################################################
+# This code simulates population growth to an equilibrium for each focal species, 
+# sampling the posterior values at each time step 
+##############################################################################################
 rm(list=ls())
-# import data
+
 
 library(coda)
 library(rstan)

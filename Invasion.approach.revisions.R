@@ -1,4 +1,8 @@
-# Calculate pair-wise low-density growth rate calculations
+##############################################################################################
+# This Code simulates pair-wise low-density growth rates where the posterior values have not 
+# been sampled through time 
+##############################################################################################
+
 # load in Stan model fits
 rm(list=ls())
 sp <- 9

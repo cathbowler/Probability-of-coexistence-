@@ -1,11 +1,14 @@
-# Calculate pair-wise low-density growth rate calculations
+############################################################################################################
+# This code calculate pair-wise low-density growth rate calculations using the mean of each posterior parmater
+############################################################################################################
+
+
 # load in Stan model fits
 sp <- 9
 library(coda)
 library(rstan)
 source("Bayes.data.R")
 
-#dagl[["germination"]] <- germ$p.1
 hygl[["germination"]] <- germ$p.2
 plde[["germination"]] <- germ$p.3
 poca[["germination"]] <- germ$p.4
