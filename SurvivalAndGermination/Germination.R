@@ -1,6 +1,5 @@
 # this code gets posteriors for germination rates to be used in coexistence calculations 
 
-
 library("rstan")
 options(mc.cores = parallel::detectCores())
 rstan_options(auto_write = TRUE)

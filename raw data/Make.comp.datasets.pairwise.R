@@ -1,6 +1,6 @@
 # Code to convert the community composition data from long form to wide form 
 #        and then join it with the fecundity data for each species 
-#        and then group neighbours into categories (without 'other' category)
+#        and then make species specific datasets 
 library(tidyverse)
 
 rm(list=ls())
@@ -32,14 +32,13 @@ v <- sum(v$neighbour.abundance)
 f[f=='NA'] <- NA # check there are real NA values for both datasets
 comm[comm=="NA"] <- NA
 
-# i want to remove rows where mature and immature both have NA's
+# need to to remove rows where mature and immature both have NA's
 library(data.table)
 f=data.table(f)
 setkeyv(f, c("mature", "immature"))
 dontwant <- f[J(NA, NA)] 
 f <- f[!J(NA, NA)]  # Pull everything mature=na and immature=na
 f=as.data.frame(f)
-
 
 # then change the NA when its only in one of these to a zero 
 f$mature[is.na(f$mature)] <- 0
@@ -60,7 +59,7 @@ spread.comm <- spread.comm %>%
 #not.in.spread.data <- anti_join(f, spread.comm) # these should be the E plots, we want them read in with neighbour abundance NA, then we change it to 0 
 spread.data<- right_join(spread.comm, f) 
 
-# idensity the mismatch in row number between spread.data and f (they're duplicates so need to remove them)
+# udentift the mismatch in row number between spread.data and f (they're duplicates so need to remove them)
 spread.data <- spread.data %>% distinct(focal.species, plot, treatment, subplot, mature, immature, .keep_all = TRUE)
 
 # check you have removed the duplicates (there shouldn't be any here now)

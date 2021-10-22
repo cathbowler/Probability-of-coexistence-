@@ -1,3 +1,4 @@
+# this code gets posteriors for survival rates to be used in coexistence calculations 
 
 library("rstan")
 options(mc.cores = parallel::detectCores())
