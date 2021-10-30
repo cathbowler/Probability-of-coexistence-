@@ -12,7 +12,7 @@ Invasion approach
 - First run Residents.to.equilibrium.R 
 - And run Residents.to.equilibrium.means.R
 - Then run Invasion.approach.revisions.R which simulates coexistence and propagates uncertainty through posterior probabilities 
-- Also run Invasion.approach.ldgr.means.R which simulates coexistence the traditional way using the mean of each posterior parameter in the calculations 
-Ratio approach
+- Also run Invasion.approach.ldgr.means.R which simulates coexistence the traditional way using the mean of each posterior parameter in the calculations   
+Ratio approach  
 - BH.equalizing.stabilizing.R calculates the equalizing and stabilizing ratios using mean values for each posterior parameter 
 - Run CB.equalizing.stabilizing.distributions.R to calculate the ratio using the full posterior probilities for each parameter 
