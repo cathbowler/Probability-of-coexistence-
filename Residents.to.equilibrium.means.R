@@ -27,7 +27,7 @@ source("Bayes.data.R")
 # }
 
 # lottery model
-do.lottery.new.seeds <- function(lived, lambda, alpha_intra) {
+do.new.seeds <- function(lived, lambda, alpha_intra) {
   N_tp1 <- lived*lambda/(1+alpha_intra*lived)
   return(N_tp1)
 }
@@ -61,7 +61,7 @@ intras=mean(arca$alpha_intra)
     lived=germinated
     
     # calculate how many seeds are produced by living germinants 
-    new.seeds <- do.lottery.new.seeds(lived=lived, lambda=lambdas, alpha_intra=intras)
+    new.seeds <- do.new.seeds(lived=lived, lambda=lambdas, alpha_intra=intras)
     
     # add above ground seeds produced to those that survived and didn't germinate from the seedbank
     seed.abundances[t+1] <- seedbank + new.seeds
@@ -106,7 +106,7 @@ intras=mean(dagl$alpha_intra)
     lived = germinated
     
     # calculate how many seeds are produced by living germinants 
-    new.seeds <- do.lottery.new.seeds(lived=lived, lambda=lambdas, alpha_intra=intras)
+    new.seeds <- do.new.seeds(lived=lived, lambda=lambdas, alpha_intra=intras)
     
     # add above ground seeds produced to those that survived and didn't germinate from the seedbank
     seed.abundances[t+1] <- seedbank + new.seeds
@@ -149,7 +149,7 @@ intras=mean(hygl$alpha_intra)
     lived = germinated
     
     # calculate how many seeds are produced by living germinants 
-    new.seeds <- do.lottery.new.seeds(lived=lived, lambda=lambdas, alpha_intra=intras)
+    new.seeds <- do.new.seeds(lived=lived, lambda=lambdas, alpha_intra=intras)
     
     # add above ground seeds produced to those that survived and didn't germinate from the seedbank
     seed.abundances[t+1] <- seedbank + new.seeds
@@ -190,7 +190,7 @@ intras=mean(plde$alpha_intra)
     lived = germinated
     
     # calculate how many seeds are produced by living germinants 
-    new.seeds <- do.lottery.new.seeds(lived=lived, lambda=lambdas, alpha_intra=intras)
+    new.seeds <- do.new.seeds(lived=lived, lambda=lambdas, alpha_intra=intras)
     
     # add above ground seeds produced to those that survived and didn't germinate from the seedbank
     seed.abundances[t+1] <- seedbank + new.seeds
@@ -232,7 +232,7 @@ intras=mean(poca$alpha_intra)
     lived = germinated
     
     # calculate how many seeds are produced by living germinants 
-    new.seeds <- do.lottery.new.seeds(lived=lived, lambda=lambdas, alpha_intra=intras)
+    new.seeds <- do.new.seeds(lived=lived, lambda=lambdas, alpha_intra=intras)
     
     # add above ground seeds produced to those that survived and didn't germinate from the seedbank
     seed.abundances[t+1] <- seedbank + new.seeds
@@ -274,7 +274,7 @@ intras=mean(trcy$alpha_intra)
     lived = germinated
     
     # calculate how many seeds are produced by living germinants 
-    new.seeds <- do.lottery.new.seeds(lived=lived, lambda=lambdas, alpha_intra=intras)
+    new.seeds <- do.new.seeds(lived=lived, lambda=lambdas, alpha_intra=intras)
     
     # add above ground seeds produced to those that survived and didn't germinate from the seedbank
     seed.abundances[t+1] <- seedbank + new.seeds
@@ -315,7 +315,7 @@ intras=mean(vero$alpha_intra)
     lived = germinated
     
     # calculate how many seeds are produced by living germinants 
-    new.seeds <- do.lottery.new.seeds(lived=lived, lambda=lambdas, alpha_intra=intras)
+    new.seeds <- do.new.seeds(lived=lived, lambda=lambdas, alpha_intra=intras)
     
     # add above ground seeds produced to those that survived and didn't germinate from the seedbank
     seed.abundances[t+1] <- seedbank + new.seeds
@@ -357,7 +357,7 @@ intras=mean(medi$alpha_intra)
     lived = germinated
     
     # calculate how many seeds are produced by living germinants 
-    new.seeds <- do.lottery.new.seeds(lived=lived, lambda=lambdas, alpha_intra=intras)
+    new.seeds <- do.new.seeds(lived=lived, lambda=lambdas, alpha_intra=intras)
     
     # add above ground seeds produced to those that survived and didn't germinate from the seedbank
     seed.abundances[t+1] <- seedbank + new.seeds
@@ -401,7 +401,7 @@ intras=mean(peai$alpha_intra)
     lived = germinated
     
     # calculate how many seeds are produced by living germinants 
-    new.seeds <- do.lottery.new.seeds(lived=lived, lambda=lambdas, alpha_intra=intras)
+    new.seeds <- do.new.seeds(lived=lived, lambda=lambdas, alpha_intra=intras)
     
     # add above ground seeds produced to those that survived and didn't germinate from the seedbank
     seed.abundances[t+1] <- seedbank + new.seeds

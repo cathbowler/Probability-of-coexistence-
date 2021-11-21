@@ -33,6 +33,7 @@ mean.poca.into.arca <- rep(NA, runs)
     peai_tp1 <- (1-mean(germination$peai))*mean(survival$peai)*invader.abund + 
       invader.abund*mean(germination$peai)*mean(peai$lambda)/(1+mean(peai$alpha_arca)*lived.arca)
     # calculate LDGR of PEAI
+    mean.peai.into.arca <- log(peai_tp1/invader.abund)
     
     # invade POCA
     poca_tp1 <- (1-mean(germination$poca))*mean(survival$poca)*invader.abund + 

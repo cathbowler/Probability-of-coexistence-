@@ -87,8 +87,8 @@ coexists <- matrix(NA, nrow = runs, ncol = total_combos)
 # Run through all possible combos
 for (r in 1:runs){
 for (x in 1:total_combos) {
-  p <- sample(seq(1, 4500),1) 
-#p <- r
+  #p <- sample(seq(1, 4500),1) 
+p <- r
   # assign s1, s2, alpha_s1, alpha_s2
   s1 <- s1_all[[x]]
   s2 <- s2_all[[x]]
@@ -315,7 +315,8 @@ coex.thresh <- vector()
 stab.val<-vector()
 for (i in 1:4500){
   coex.thresh[i] <- 1/(1-corrected.stabilizing[,6][i])
-  if (log(equalizing[,6][i]) < log(coex.thresh[i])){
+  corrected.equalizing <- ifelse(equalizing< 0, 100, equalizing) # just making 100 to ignore it coz coex not possible anyway
+  if (log(corrected.equalizing[,6][i]) < log(coex.thresh[i])){
     coex.thresh[i] <- 1
   } else {
     coex.thresh[i] <- 0}}

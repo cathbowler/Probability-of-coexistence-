@@ -16,14 +16,8 @@ sp_list <- c("dagl", "hygl", "plde",
 source("Bayes.data.R")
 # -----------------------------------------------------------------------------------------
 
-# # single species equilibrium calculations NO LOTTERY MODEL
-# do.abundance.single.species <- function(N_t, surv, g, lambda, alpha_intra) {
-#   N_tp1 <- N_t*surv*(1-g) + N_t*g*lambda/(1+alpha_intra*N_t*g)
-#   return(N_tp1)
-# }
-
 # lottery model
-do.lottery.new.seeds <- function(lived, lambda, alpha_intra) {
+do.new.seeds <- function(lived, lambda, alpha_intra) {
   N_tp1 <- lived*lambda/(1+alpha_intra*lived)
   return(N_tp1)
 }
@@ -57,7 +51,7 @@ for (r in 1:runs){ # then make runs=4500 to systematically go through each poste
     lived=germinated
     
     # calculate how many seeds are produced by living germinants 
-    new.seeds <- do.lottery.new.seeds(lived=lived, lambda=lambdas[p], alpha_intra=intras[p])
+    new.seeds <- do.new.seeds(lived=lived, lambda=lambdas[p], alpha_intra=intras[p])
     
     # add above ground seeds produced to those that survived and didn't germinate from the seedbank
     seed.abundances[r, t+1] <- seedbank + new.seeds
@@ -67,6 +61,7 @@ for (r in 1:runs){ # then make runs=4500 to systematically go through each poste
 # plot the seed abundance trajectory through time (200 years)
 library(ggplot2)
 library(reshape2)
+plot(seed.abundances[1,])
 data.melt.arca <- melt(seed.abundances, varnames = c("run", "time"), value.name = "abundance")
 spline.arca <- as.data.frame(spline(data.melt.arca$time, data.melt.arca$abundance))
 
@@ -389,18 +384,19 @@ dev.off()
 #####
 pdf("Figures/single.sp.t=200_notime.pdf")
 par(mfrow=c(3,3), mar=c(2,2,2,2), oma=c(4,4,1,1))
-plot(density(abundances.arca.novar[,200]), main=expression(italic("A. calendula")))
+plot(density(abundances.arca.novar[,200][which(abundances.arca.novar[,200]<HPDinterval(as.mcmc(abundances.arca.novar[,200]))[2])]), main=expression(italic("A. calendula")))
 mtext(side=2, line=3, "density")
-plot(density(abundances.medi.novar[,200]), main=expression(italic("M. minima")))
-plot(density(abundances.peai.novar[,200]), main=expression(italic("P. airoides")))
-plot(density(abundances.hygl.novar[,200]), main=expression(italic("H. glutinosum")))
+plot(density(abundances.medi.novar[,200][which(abundances.medi.novar[,200]<HPDinterval(as.mcmc(abundances.medi.novar[,200]))[2])]), main=expression(italic("M. minima")))
+plot(density(abundances.peai.novar[,200][which(abundances.peai.novar[,200]<HPDinterval(as.mcmc(abundances.peai.novar[,200]))[2])]), main=expression(italic("P. airoides")))
+plot(density(abundances.hygl.novar[,200][which(abundances.hygl.novar[,200]<HPDinterval(as.mcmc(abundances.hygl.novar[,200]))[2])]), main=expression(italic("H. glutinosum")))
 mtext(side=2, line=3, "density")
-plot(density(abundances.plde.novar[,200]), main=expression(italic("P. debilis")))
-plot(density(abundances.poca.novar[,200]), main=expression(italic("P. canescens")))
-plot(density(abundances.trcy.novar[,200]), main=expression(italic("T. cyanopetala")))
+plot(density(abundances.plde.novar[,200][which(abundances.plde.novar[,200]<HPDinterval(as.mcmc(abundances.plde.novar[,200]))[2])]), main=expression(italic("P. debilis")))
+plot(density(abundances.poca.novar[,200][which(abundances.poca.novar[,200]<HPDinterval(as.mcmc(abundances.poca.novar[,200]))[2])]), main=expression(italic("P. canescens")))
+plot(density(abundances.trcy.novar[,200][which(abundances.trcy.novar[,200]<HPDinterval(as.mcmc(abundances.trcy.novar[,200]))[2])]), 
+     main=expression(italic("T. cyanopetala")))
 mtext(side=1, line=3, "steady state population size")
 mtext(side=2, line=3, "density")
-plot(density(abundances.vero.novar[,200]), main=expression(italic("G. rosea")))
+plot(density(abundances.vero.novar[,200][which(abundances.vero.novar[,200]<HPDinterval(as.mcmc(abundances.vero.novar[,200]))[2])]), main=expression(italic("G. rosea")))
 mtext(side=1, line=3, "steady state population size")
 dev.off()
 
