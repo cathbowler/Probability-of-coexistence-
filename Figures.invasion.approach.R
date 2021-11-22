@@ -288,7 +288,7 @@ abline(v=0, lty=2)
 points(x=means, y=rep(0,2),  col=cols[c(9,4)], pch=19)
 #species.names = c("dagl", "hygl", "plde", "poca", "trcy", "vero", "arca", "medi", "peai")
 legend("topright", legend=c(expression(italic("P. airoides")), expression(italic("H. glutinosum"))), col=c(cols[9], cols[4]),lwd=2, lty=1, bty="n")
-mtext(side=3, adj=0, "(a) case 2", cex=1.3)
+mtext(side=3, adj=0, "(a) case 6", cex=1.3)
 mtext(side = 2, line=2, "Density", cex=1.3)
 dat <- cbind(peai.into.hygl,hygl.into.peai)
 coex <- length(which(dat[,1]>0&dat[,2]>0))/4500

@@ -98,7 +98,7 @@ for (r in 1:runs){ # then make runs=4500 to systematically go through each poste
     lived = germinated
     
     # calculate how many seeds are produced by living germinants 
-    new.seeds <- do.lottery.new.seeds(lived=lived, lambda=lambdas[p], alpha_intra=intras[p])
+    new.seeds <- do.new.seeds(lived=lived, lambda=lambdas[p], alpha_intra=intras[p])
     
     # add above ground seeds produced to those that survived and didn't germinate from the seedbank
     seed.abundances[r, t+1] <- seedbank + new.seeds
@@ -139,7 +139,7 @@ for (r in 1:runs){ # then make runs=4500 to systematically go through each poste
     lived = germinated
     
     # calculate how many seeds are produced by living germinants 
-    new.seeds <- do.lottery.new.seeds(lived=lived, lambda=lambdas[p], alpha_intra=intras[p])
+    new.seeds <- do.new.seeds(lived=lived, lambda=lambdas[p], alpha_intra=intras[p])
     
     # add above ground seeds produced to those that survived and didn't germinate from the seedbank
     seed.abundances[r, t+1] <- seedbank + new.seeds
@@ -181,7 +181,7 @@ for (r in 1:runs){ # then make runs=4500 to systematically go through each poste
     lived = germinated
     
     # calculate how many seeds are produced by living germinants 
-    new.seeds <- do.lottery.new.seeds(lived=lived, lambda=lambdas[p], alpha_intra=intras[p])
+    new.seeds <- do.new.seeds(lived=lived, lambda=lambdas[p], alpha_intra=intras[p])
     
     # add above ground seeds produced to those that survived and didn't germinate from the seedbank
     seed.abundances[r, t+1] <- seedbank + new.seeds
@@ -223,7 +223,7 @@ intras=trcy$alpha_intra
     lived = germinated
     
     # calculate how many seeds are produced by living germinants 
-    new.seeds <- do.lottery.new.seeds(lived=lived, lambda=lambdas[p], alpha_intra=intras[p])
+    new.seeds <- do.new.seeds(lived=lived, lambda=lambdas[p], alpha_intra=intras[p])
     
     # add above ground seeds produced to those that survived and didn't germinate from the seedbank
     seed.abundances[r, t+1] <- seedbank + new.seeds
@@ -264,7 +264,7 @@ for (r in 1:runs){ # then make runs=4500 to systematically go through each poste
     lived = germinated
     
     # calculate how many seeds are produced by living germinants 
-    new.seeds <- do.lottery.new.seeds(lived=lived, lambda=lambdas[p], alpha_intra=intras[p])
+    new.seeds <- do.new.seeds(lived=lived, lambda=lambdas[p], alpha_intra=intras[p])
     
     # add above ground seeds produced to those that survived and didn't germinate from the seedbank
     seed.abundances[r, t+1] <- seedbank + new.seeds
@@ -305,7 +305,7 @@ for (r in 1:runs){ # then make runs=4500 to systematically go through each poste
     lived = germinated
     
     # calculate how many seeds are produced by living germinants 
-    new.seeds <- do.lottery.new.seeds(lived=lived, lambda=lambdas[p], alpha_intra=intras[p])
+    new.seeds <- do.new.seeds(lived=lived, lambda=lambdas[p], alpha_intra=intras[p])
     
     # add above ground seeds produced to those that survived and didn't germinate from the seedbank
     seed.abundances[r, t+1] <- seedbank + new.seeds
@@ -346,7 +346,7 @@ for (r in 1:runs){ # then make runs=4500 to systematically go through each poste
     lived = germinated
     
     # calculate how many seeds are produced by living germinants 
-    new.seeds <- do.lottery.new.seeds(lived=lived, lambda=lambdas[p], alpha_intra=intras[p])
+    new.seeds <- do.new.seeds(lived=lived, lambda=lambdas[p], alpha_intra=intras[p])
     
     # add above ground seeds produced to those that survived and didn't germinate from the seedbank
     seed.abundances[r, t+1] <- seedbank + new.seeds
