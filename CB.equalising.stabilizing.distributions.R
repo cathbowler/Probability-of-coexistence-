@@ -172,7 +172,7 @@ plot(corrected.stabilizing[,5], log(equalizing[,5]), pch=16, col=alpha("skyblue"
 points(mean.corrected.stabilizing[5], log(mean.equalizing[5]), pch=19, col="black")
 lines(xseq, log(yseq), col="grey", lwd=2)
 polygon(c(xseq, rev(xseq)), c(log(yseq), rep(0, length(xseq))), col=tgreen)
-mtext(pairs[5], side=3, cex = 0.7)
+mtext(pairs[5], side=3, cex = 0.8)
 
 # calculate the probability of coexistence 
 coex.thresh <- vector()
@@ -184,13 +184,13 @@ for (i in 1:4500){
   } else {
     coex.thresh[i] <- 0}}
 tx <- sum(coex.thresh)/4500*100
-text(.9, 11, round(tx,2), cex=0.8)
+text(.9, 11, paste0(round(tx,2), "%"), cex=1)
 
 plot(corrected.stabilizing[,8], log(equalizing[,8]), pch=16, col=alpha("skyblue", 0.5), xlab="Stabilizing ND", ylab="Log FD", xlim=c(0,1), ylim=c(0,12))
 points(mean.corrected.stabilizing[8], log(mean.equalizing[8]), pch=19, col="black")
 lines(xseq, log(yseq), col="grey", lwd=2)
 polygon(c(xseq, rev(xseq)), c(log(yseq), rep(0, length(xseq))), col=tgreen)
-mtext(pairs[8], side=3, cex = 0.7)
+mtext(pairs[8], side=3, cex = 0.8)
 
 coex.thresh <- vector()
 stab.val<-vector()
@@ -201,13 +201,13 @@ for (i in 1:4500){
   } else {
     coex.thresh[i] <- 0}}
 tx <- sum(coex.thresh)/4500*100
-text(.9, 11, round(tx,2), cex=0.8)
+text(.9, 11, paste0(round(tx,2), "%"), cex=1)
 
 plot(corrected.stabilizing[,4], log(equalizing[,4]), pch=16, col=alpha("skyblue", 0.5), xlab="Stabilizing ND", ylab="Log FD", xlim=c(0,1), ylim=c(0,12))
 points(mean.corrected.stabilizing[4], log(mean.equalizing[4]), pch=19, col="black")
 lines(xseq, log(yseq), col="grey", lwd=2)
 polygon(c(xseq, rev(xseq)), c(log(yseq), rep(0, length(xseq))), col=tgreen)
-mtext(pairs[4], side=3, cex = 0.7)
+mtext(pairs[4], side=3, cex = 0.8)
 
 coex.thresh <- vector()
 stab.val<-vector()
@@ -218,13 +218,13 @@ for (i in 1:4500){
   } else {
     coex.thresh[i] <- 0}}
 tx <- sum(coex.thresh)/4500*100
-text(.9, 11, round(tx,2), cex=0.8)
+text(.9, 11, paste0(round(tx,2), "%"), cex=1)
 
 plot(corrected.stabilizing[,9], log(equalizing[,9]), pch=16, col=alpha("skyblue", 0.5), xlab="Stabilizing ND", ylab="Log FD", xlim=c(0,1), ylim=c(0,12))
 points(mean.corrected.stabilizing[9], log(mean.equalizing[9]), pch=19, col="black")
 lines(xseq, log(yseq), col="grey", lwd=2)
 polygon(c(xseq, rev(xseq)), c(log(yseq), rep(0, length(xseq))), col=tgreen)
-mtext(pairs[9], side=3, cex = 0.7)
+mtext(pairs[9], side=3, cex = 0/8)
 
 coex.thresh <- vector()
 stab.val<-vector()
@@ -235,13 +235,13 @@ for (i in 1:4500){
   } else {
     coex.thresh[i] <- 0}}
 tx <- sum(coex.thresh)/4500*100
-text(.9, 11, round(tx,2), cex=0.8)
+text(.9, 11, paste0(round(tx,2), "%"), cex=1)
 
 plot(corrected.stabilizing[,1], log(equalizing[,1]), pch=16, col=alpha("skyblue", 0.5), xlab="Stabilizing ND", ylab="Log FD", xlim=c(0,1), ylim=c(0,12))
 points(mean.corrected.stabilizing[1], log(mean.equalizing[1]), pch=19, col="black")
 lines(xseq, log(yseq), col="grey", lwd=2)
 polygon(c(xseq, rev(xseq)), c(log(yseq), rep(0, length(xseq))), col=tgreen)
-mtext(pairs[1], side=3, cex = 0.7)
+mtext(pairs[1], side=3, cex = 0.8)
 
 coex.thresh <- vector()
 stab.val<-vector()
@@ -252,13 +252,13 @@ for (i in 1:4500){
   } else {
     coex.thresh[i] <- 0}}
 tx <- sum(coex.thresh)/4500*100
-text(.9, 11, round(tx,2), cex=0.8)
+text(.9, 11, paste0(round(tx,2), "%"), cex=1)
 
 plot(corrected.stabilizing[,3], log(equalizing[,3]), pch=16, col=alpha("skyblue", 0.5), xlab="Stabilizing ND", ylab="Log FD", xlim=c(0,1), ylim=c(0,12))
 points(mean.corrected.stabilizing[3], log(mean.equalizing[3]), pch=19, col="black")
 lines(xseq, log(yseq), col="grey", lwd=2)
 polygon(c(xseq, rev(xseq)), c(log(yseq), rep(0, length(xseq))), col=tgreen)
-mtext(pairs[3], side=3, cex = 0.7)
+mtext(pairs[3], side=3, cex = 0.8)
 
 coex.thresh <- vector()
 stab.val<-vector()
@@ -269,13 +269,13 @@ for (i in 1:4500){
   } else {
     coex.thresh[i] <- 0}}
 tx <- sum(coex.thresh)/4500*100
-text(.9, 11, round(tx,2), cex=0.8)
+text(.9, 11, paste0(round(tx,2), "%"), cex=1)
 
 plot(corrected.stabilizing[,12], log(equalizing[,12]), pch=16, col=alpha("skyblue", 0.5), xlab="Stabilizing ND", ylab="Log FD", xlim=c(0,1), ylim=c(0,12))
 points(mean.corrected.stabilizing[12], log(mean.equalizing[12]), pch=19, col="black")
 lines(xseq, log(yseq), col="grey", lwd=2)
 polygon(c(xseq, rev(xseq)), c(log(yseq), rep(0, length(xseq))), col=tgreen)
-mtext(pairs[12], side=3, cex = 0.7)
+mtext(pairs[12], side=3, cex = 0.8)
 
 coex.thresh <- vector()
 stab.val<-vector()
@@ -286,13 +286,13 @@ for (i in 1:4500){
   } else {
     coex.thresh[i] <- 0}}
 tx <- sum(coex.thresh)/4500*100
-text(.9, 11, round(tx,2), cex=0.8)
+text(.9, 11, paste0(round(tx,2), "%"), cex=1)
 
 plot(corrected.stabilizing[,2], log(equalizing[,2]), pch=16, col=alpha("skyblue", 0.5), xlab="Stabilizing ND", ylab="Log FD", xlim=c(0,1), ylim=c(0,12))
 points(mean.corrected.stabilizing[2], log(mean.equalizing[2]), pch=19, col="black")
 lines(xseq, log(yseq), col="grey", lwd=2)
 polygon(c(xseq, rev(xseq)), c(log(yseq), rep(0, length(xseq))), col=tgreen)
-mtext(pairs[2], side=3, cex = 0.7)
+mtext(pairs[2], side=3, cex = 0.8)
 
 coex.thresh <- vector()
 stab.val<-vector()
@@ -303,13 +303,13 @@ for (i in 1:4500){
   } else {
     coex.thresh[i] <- 0}}
 tx <- sum(coex.thresh)/4500*100
-text(.9, 11, round(tx,2), cex=0.8)
+text(.9, 11, paste0(round(tx,2), "%"), cex=1)
 
 plot(corrected.stabilizing[,6], log(equalizing[,6]), pch=16, col=alpha("skyblue", 0.5), xlab="Stabilizing ND", ylab="Log FD", xlim=c(0,1), ylim=c(0,12))
 points(mean.corrected.stabilizing[6], log(mean.equalizing[6]), pch=19, col="black")
 lines(xseq, log(yseq), col="grey", lwd=2)
 polygon(c(xseq, rev(xseq)), c(log(yseq), rep(0, length(xseq))), col=tgreen)
-mtext(pairs[6], side=3, cex = 0.7)
+mtext(pairs[6], side=3, cex = 0.8)
 
 coex.thresh <- vector()
 stab.val<-vector()
@@ -321,13 +321,13 @@ for (i in 1:4500){
   } else {
     coex.thresh[i] <- 0}}
 tx <- sum(coex.thresh)/4500*100
-text(.9, 11, round(tx,2), cex=0.8)
+text(.9, 11, paste0(round(tx,2), "%"), cex=1)
 
 plot(corrected.stabilizing[,7], log(equalizing[,7]), pch=16, col=alpha("skyblue", 0.5), xlab="Stabilizing ND", ylab="Log FD", xlim=c(0,1), ylim=c(0,12))
 points(mean.corrected.stabilizing[7], log(mean.equalizing[7]), pch=19, col="black")
 lines(xseq, log(yseq), col="grey", lwd=2)
 polygon(c(xseq, rev(xseq)), c(log(yseq), rep(0, length(xseq))), col=tgreen)
-mtext(pairs[7], side=3, cex = 0.7)
+mtext(pairs[7], side=3, cex = 0.8)
 
 coex.thresh <- vector()
 stab.val<-vector()
@@ -338,13 +338,13 @@ for (i in 1:4500){
   } else {
     coex.thresh[i] <- 0}}
 tx <- sum(coex.thresh)/4500*100
-text(.9, 11, round(tx,2), cex=0.8)
+text(.9, 11, paste0(round(tx,2), "%"), cex=1)
 
 plot(corrected.stabilizing[,10], log(equalizing[,10]), pch=16, col=alpha("skyblue", 0.5), xlab="Stabilizing ND", ylab="Log FD", xlim=c(0,1), ylim=c(0,12))
 points(mean.corrected.stabilizing[10], log(mean.equalizing[10]), pch=19, col="black")
 lines(xseq, log(yseq), col="grey", lwd=2)
 polygon(c(xseq, rev(xseq)), c(log(yseq), rep(0, length(xseq))), col=tgreen)
-mtext(pairs[10], side=3, cex = 0.7)
+mtext(pairs[10], side=3, cex = 0.8)
 
 coex.thresh <- vector()
 stab.val<-vector()
@@ -356,13 +356,13 @@ for (i in 1:4500){
   } else {
     coex.thresh[i] <- 0}}
 tx <- sum(coex.thresh)/4500*100
-text(.9, 11, round(tx,2), cex=0.8)
+text(.9, 11, paste0(round(tx,2), "%"), cex=1)
 
 plot(corrected.stabilizing[,11], log(equalizing[,11]), pch=16, col=alpha("skyblue", 0.5), xlab="Stabilizing ND", ylab="Log FD", xlim=c(0,1), ylim=c(0,12))
 points(mean.corrected.stabilizing[11], log(mean.equalizing[11]), pch=19, col="black")
 lines(xseq, log(yseq), col="grey", lwd=2)
 polygon(c(xseq, rev(xseq)), c(log(yseq), rep(0, length(xseq))), col=tgreen)
-mtext(pairs[11], side=3, cex = 0.7)
+mtext(pairs[11], side=3, cex = 0.8)
 
 coex.thresh <- vector()
 stab.val<-vector()
@@ -374,13 +374,13 @@ for (i in 1:4500){
   } else {
     coex.thresh[i] <- 0}}
 tx <- sum(coex.thresh)/4500*100
-text(.9, 11, round(tx,2), cex=0.8)
+text(.9, 11, paste0(round(tx,2), "%"), cex=1)
 
 plot(corrected.stabilizing[,13], log(equalizing[,13]), pch=16, col=alpha("skyblue", 0.5), xlab="Stabilizing ND", ylab="Log FD", xlim=c(0,1), ylim=c(0,12))
 points(mean.corrected.stabilizing[13], log(mean.equalizing[13]), pch=19, col="black")
 lines(xseq, log(yseq), col="grey", lwd=2)
 polygon(c(xseq, rev(xseq)), c(log(yseq), rep(0, length(xseq))), col=tgreen)
-mtext(pairs[13], side=3, cex = 0.7)
+mtext(pairs[13], side=3, cex = 0.8)
 
 coex.thresh <- vector()
 stab.val<-vector()
@@ -392,13 +392,13 @@ for (i in 1:4500){
   } else {
     coex.thresh[i] <- 0}}
 tx <- sum(coex.thresh)/4500*100
-text(.9, 11, round(tx,2), cex=0.8)
+text(.9, 11, paste0(round(tx,2), "%"), cex=1)
 
 plot(corrected.stabilizing[,14], log(equalizing[,14]), pch=16, col=alpha("skyblue", 0.5), xlab="Stabilizing ND", ylab="Log FD", xlim=c(0,1), ylim=c(0,12))
 points(mean.corrected.stabilizing[14], log(mean.equalizing[14]), pch=19, col="black")
 lines(xseq, log(yseq), col="grey", lwd=2)
 polygon(c(xseq, rev(xseq)), c(log(yseq), rep(0, length(xseq))), col=tgreen)
-mtext(pairs[14], side=3, cex = 0.7)
+mtext(pairs[14], side=3, cex = 0.8)
 
 coex.thresh <- vector()
 stab.val<-vector()
@@ -410,7 +410,14 @@ for (i in 1:4500){
   } else {
     coex.thresh[i] <- 0}}
 tx <- sum(coex.thresh)/4500*100
-text(.9, 11, round(tx,2), cex=0.8)
+text(.9, 11, paste0(round(tx,2), "%"), cex=1)
 
 dev.off()
 
+
+
+
+
+
+
+####

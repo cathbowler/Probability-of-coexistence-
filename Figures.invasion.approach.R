@@ -4,7 +4,10 @@
 library(rstan)
 #source("Invasion.approach.revisions.R")
 source("Invasion.approach.ldgr.means.R")
+source("Invasion.approach.ldgr.medians.R")
+
 source("Invasions.approach.revisions.novar.R")
+
 
 species.names = c("dagl", "hygl", "plde", "poca", "trcy", "vero", "arca", "medi", "peai")
 cols = c("#F8766D","#E7861B", "#95A900", "#39B600", "#00C19C",
@@ -30,127 +33,151 @@ par(mfrow=c(5,3), mar=c(2,1.5,2,1.5), oma=c(3,3,3,3))
 
 #hygl and plde
 means <- c(mean.hygl.into.plde, mean.plde.into.hygl)
+medians <- c(median.hygl.into.plde, median.plde.into.hygl)
 plot(density(hygl.into.plde, na.rm = T), col=cols[2], main ="", lwd=2,
      xlim=c(-1,3.5), ylim=c(0,3.5), xlab="")
 lines(density(plde.into.hygl, na.rm=T), col=cols[3], lwd=2)
 abline(v=0, lty=2)
 points(x=means, y=rep(0,2),  col=cols[c(2,3)], pch=19)
+points(x=medians, y=rep(0,2),  col=cols[c(2,3)], pch=3)
 mtext("case 4", side=3, adj=0)
 legend("topright", legend=c(expression(italic("H. glutinosum")), expression(italic("P. debilis"))), col=c(cols[2], cols[3]),lwd=2, lty=1, bty="n")
 mtext(side=2, line=3, adj=-15, "Density")
 #auc <- ecdf(plde.into.hygl[which(plde.into.hygl<HPDinterval((as.mcmc(as.numeric(plde.into.hygl))))[,2])])
 dat <- cbind(hygl.into.plde,plde.into.hygl)
 coex <- length(which(dat[,1]>0&dat[,2]>0))/4500
-mtext(paste0(round(coex*100,2), "%"), side=3, adj=1, cex=0.8)
+mtext(paste0(round(coex*100,2), "%"), side=3, adj=1, cex=1)
 
 
 # peai and plde
 means <- c(mean.peai.into.plde, mean.plde.into.peai)
+medians <- c(median.peai.into.plde, median.plde.into.peai)
 plot(density(peai.into.plde, na.rm = T), col=cols[9], main ="", lwd=2,
      xlim=c(-1,4), ylim=c(0,3), xlab="")
 lines(density(plde.into.peai, na.rm = T), col=cols[3], lwd=2)
 abline(v=0, lty=2)
 points(x=means, y=rep(0,2),  col=cols[c(9,3)], pch=19)
+points(x=medians, y=rep(0,2),  col=cols[c(2,3)], pch=3)
 mtext("case 6", side=3, adj=0)
 legend("topright", legend=c(expression(italic("P. airoides")), expression(italic("P. debilis"))), col=c(cols[9], cols[3]),lwd=2, lty=1, bty="n")
 
 dat <- cbind(peai.into.plde,plde.into.peai)
 coex <- length(which(dat[,1]>0&dat[,2]>0))/4500
-mtext(paste0(round(coex*100,2), "%"), side=3, adj=1, cex=0.8)
+mtext(paste0(round(coex*100,2), "%"), side=3, adj=1, cex=1)
 
 # hygl and peai
 means <- c(mean.hygl.into.peai, mean.peai.into.hygl)
+medians <- c(median.hygl.into.peai, median.peai.into.hygl)
 plot(density(hygl.into.peai, na.rm = T), col=cols[2], main ="", lwd=2,
      xlim=c(-1.5,3), ylim=c(0,2), xlab="")
 lines(density(peai.into.hygl, na.rm = T), col=cols[9], lwd=2)
 abline(v=0, lty=2)
 points(x=means, y=rep(0,2),  col=cols[c(2,9)], pch=19)
+points(x=medians, y=rep(0,2),  col=cols[c(2,3)], pch=3)
 mtext("case 6", side=3, adj=0)
 legend("topright", legend=c(expression(italic("H. glutinosum")), expression(italic("P. airoides"))), col=c(cols[2], cols[9]),lwd=2, lty=1, bty="n")
 
 dat <- cbind(hygl.into.peai,peai.into.hygl)
 coex <- length(which(dat[,1]>0&dat[,2]>0))/4500
-mtext(paste0(round(coex*100,2), "%"), side=3, adj=1, cex=0.8)
+mtext(paste0(round(coex*100,2), "%"), side=3, adj=1, cex=1)
 
 
 # peai and poca
 means <- c(mean.peai.into.poca, mean.poca.into.peai)
+medians <- c(median.peai.into.poca, median.poca.into.peai)
+
 plot(density(peai.into.poca, na.rm = T), col=cols[9], main ="", lwd=2,
      xlim=c(-1,7), ylim=c(0,1), xlab="")
 lines(density(poca.into.peai, na.rm = T), col=cols[4], main ="", lwd=2)
 abline(v=0, lty=2)
 points(x=means, y=rep(0,2),  col=cols[c(9,4)], pch=19)
+points(x=medians, y=rep(0,2),  col=cols[c(2,3)], pch=3)
 species.names = c("dagl", "hygl", "plde", "poca", "trcy", "vero", "arca", "medi", "peai")
 mtext("case 2", side=3, adj=0)
 legend("topright", legend=c(expression(italic("P. airoides")), expression(italic("P. canescens"))), col=c(cols[9], cols[4]),lwd=2, lty=1, bty="n")
 
 dat <- cbind(peai.into.poca,poca.into.peai)
 coex <- length(which(dat[,1]>0&dat[,2]>0))/4500
-mtext(paste0(round(coex*100,2), "%"), side=3, adj=1, cex=0.8)
+mtext(paste0(round(coex*100,2), "%"), side=3, adj=1, cex=1)
 
 # arca and peai
 means <- c(mean.arca.into.peai, mean.peai.into.arca)
+medians <- c(median.arca.into.peai, median.peai.into.arca)
+
 plot(density(arca.into.peai, na.rm = T), col=cols[7], main ="", lwd=2,
      xlim=c(-1,5), ylim=c(0,5), xlab="")
 lines(density(peai.into.arca, na.rm = T), col=cols[9], lwd=2)
 abline(v=0, lty=2)
 points(x=means, y=rep(0,2),  col=cols[c(7,9)], pch=19)
+points(x=medians, y=rep(0,2),  col=cols[c(2,3)], pch=3)
 mtext("case 5", side=3, adj=0)
 legend("topright", legend=c(expression(italic("A. calendula")), expression(italic("P. airdoides"))), col=c(cols[7], cols[9]),lwd=2, lty=1, bty="n")
 
 dat <- cbind(arca.into.peai,peai.into.arca)
 coex <- length(which(dat[,1]>0&dat[,2]>0))/4500
-mtext(paste0(round(coex*100,2), "%"), side=3, adj=1, cex=0.8)
+mtext(paste0(round(coex*100,2), "%"), side=3, adj=1, cex=1)
 
 # hygl and medi
 means <- c(mean.hygl.into.medi, mean.medi.into.hygl)
+medians <- c(median.hygl.into.medi, median.medi.into.hygl)
+
 plot(density(hygl.into.medi, na.rm = T), col=cols[2], main ="", lwd=2,
      xlim=c(-0.5,3.5), ylim=c(0,8), xlab="")
 lines(density(medi.into.hygl, na.rm = T), col=cols[8], lwd=2)
 abline(v=0, lty=2)
 points(x=means, y=rep(0,2),  col=cols[c(2,8)], pch=19)
+points(x=medians, y=rep(0,2),  col=cols[c(2,3)], pch=3)
 mtext("case 3", side=3, adj=0)
 legend("topright", legend=c(expression(italic("H. glutinosum")), expression(italic("M. minima"))), col=c(cols[2], cols[8]),lwd=2, lty=1, bty="n")
 
 dat <- cbind(hygl.into.medi,medi.into.hygl)
 coex <- length(which(dat[,1]>0&dat[,2]>0))/4500
-mtext(paste0(round(coex*100,2), "%"), side=3, adj=1, cex=0.8)
+mtext(paste0(round(coex*100,2), "%"), side=3, adj=1, cex=1)
 
 # plde and poca
 means <- c(mean.plde.into.poca, mean.poca.into.plde)
+medians <- c(median.plde.into.poca, median.poca.into.plde)
+
 plot(density(plde.into.poca, na.rm = T), col=cols[3], main ="", lwd=2,
      xlim=c(-1,5), ylim=c(0,8), xlab="")
 lines(density(poca.into.plde, na.rm = T), col=cols[4], lwd=2)
 abline(v=0, lty=2)
 points(x=means, y=rep(0,2),  col=cols[c(3,4)], pch=19)
+points(x=medians, y=rep(0,2),  col=cols[c(2,3)], pch=3)
 mtext("case 3", side=3, adj=0)
 legend("topright", legend=c(expression(italic("P. debilis")), expression(italic("P. canescens"))), col=c(cols[3], cols[4]),lwd=2, lty=1, bty="n")
 
 dat <- cbind(plde.into.poca,poca.into.plde)
 coex <- length(which(dat[,1]>0&dat[,2]>0))/4500
-mtext(paste0(round(coex*100,2), "%"), side=3, adj=1, cex=0.8)
+mtext(paste0(round(coex*100,2), "%"), side=3, adj=1, cex=1)
 
 # arca and poca
 means <- c(mean.arca.into.poca, mean.poca.into.arca)
+medians <- c(median.arca.into.poca, median.poca.into.arca)
+
 plot(density(arca.into.poca, na.rm = T), col=cols[7], main ="", lwd=2,
      xlim=c(-1,6), ylim=c(0,7), xlab="")
 lines(density(poca.into.arca, na.rm = T), col=cols[3], lwd=2)
 abline(v=0, lty=2)
 points(x=means, y=rep(0,2),  col=cols[c(7,3)], pch=19)
+points(x=medians, y=rep(0,2),  col=cols[c(2,3)], pch=3)
 mtext("case 3", side=3, adj=0)
 legend("topright", legend=c(expression(italic("A. calendula")), expression(italic("P. canescens"))), col=c(cols[7], cols[3]),lwd=2, lty=1, bty="n")
 
 dat <- cbind(arca.into.poca,poca.into.arca)
 coex <- length(which(dat[,1]>0&dat[,2]>0))/4500
-mtext(paste0(round(coex*100,2), "%"), side=3, adj=1, cex=0.8)
+mtext(paste0(round(coex*100,2), "%"), side=3, adj=1, cex=1)
 
 #hygl and vero
 means <- c(mean.hygl.into.vero, mean.vero.into.hygl)
+medians <- c(median.hygl.into.vero, median.vero.into.hygl)
+
 plot(density(hygl.into.vero, na.rm = T), col=cols[2], main ="", lwd=2,
      xlim=c(-1,3), ylim=c(0,6), xlab="")
 lines(density(vero.into.hygl, na.rm = T), col=cols[6], lwd=2)
 abline(v=0, lty=2)
 points(x=means, y=rep(0,2),  col=cols[c(2,6)], pch=19)
+points(x=medians, y=rep(0,2),  col=cols[c(2,3)], pch=3)
 mtext("case 3", side=3, adj=0)
 legend("topright", legend=c(expression(italic("H. glutinosum")), expression(italic("G. rosea"))), col=c(cols[2], cols[6]),lwd=2, lty=1, bty="n")
 
@@ -158,81 +185,94 @@ dat <- cbind(hygl.into.vero,vero.into.hygl)
 length(which(dat[,2]>0))/4500
 
 coex <- length(which(dat[,1]>0&dat[,2]>0))/4500
-mtext(paste0(round(coex*100,2), "%"), side=3, adj=1, cex=0.8)
+mtext(paste0(round(coex*100,2), "%"), side=3, adj=1, cex=1)
 
 
 # medi and peai 
 means <- c(mean.medi.into.peai, mean.peai.into.medi)
+medians <- c(median.medi.into.peai, median.peai.into.medi)
+
 plot(density(medi.into.peai, na.rm = T), col=cols[8], main ="", lwd=2,
      xlim=c(-0.5,5), ylim=c(0,8), xlab="")
 lines(density(peai.into.medi, na.rm = T), col=cols[9], lwd=2)
 abline(v=0, lty=2)
 points(x=means, y=rep(0,2),  col=cols[c(8,9)], pch=19)
+points(x=medians, y=rep(0,2),  col=cols[c(2,3)], pch=3)
 mtext("case 3", side=3, adj=0)
 legend("topright", legend=c(expression(italic("M. minima")), expression(italic("P. airoides"))), col=c(cols[8], cols[9]),lwd=2, lty=1, bty="n")
 
 dat <- cbind(medi.into.peai,peai.into.medi)
 coex <- length(which(dat[,1]>0&dat[,2]>0))/4500
-mtext(paste0(round(coex*100,2), "%"), side=3, adj=1, cex=0.8)
+mtext(paste0(round(coex*100,2), "%"), side=3, adj=1, cex=1)
 
 # peai and trcy
 means <- c(mean.peai.into.trcy, mean.trcy.into.peai)
+medians <- c(median.peai.into.trcy, median.trcy.into.peai)
+
 plot(density(peai.into.trcy, na.rm = T), col=cols[9], main ="", lwd=2,
      xlim=c(-1.5,5.5), ylim=c(0,6), xlab="")
 lines(density(trcy.into.peai, na.rm = T), col=cols[5], lwd=2)
 abline(v=0, lty=2)
 points(x=means, y=rep(0,2),  col=cols[c(9,5)], pch=19)
+points(x=medians, y=rep(0,2),  col=cols[c(2,3)], pch=3)
 mtext("case 3", side=3, adj=0)
 legend("topright", legend=c(expression(italic("P. airoides")), expression(italic("T. cyanopetala"))), col=c(cols[9], cols[5]),lwd=2, lty=1, bty="n")
 
 dat <- cbind(peai.into.trcy,trcy.into.peai)
 coex <- length(which(dat[,1]>0&dat[,2]>0))/4500
-mtext(paste0(round(coex*100,2), "%"), side=3, adj=1, cex=0.8)
+mtext(paste0(round(coex*100,2), "%"), side=3, adj=1, cex=1)
 
 # peai and vero
 means <- c(mean.peai.into.vero, mean.vero.into.peai)
+medians <- c(median.peai.into.vero, median.vero.into.peai)
+
 plot(density(peai.into.vero, na.rm = T), col=cols[9], main ="", lwd=2,
      xlim=c(-1,5.5), ylim=c(0,8), xlab="")
 lines(density(vero.into.peai, na.rm = T), col=cols[6], lwd=2)
 abline(v=0, lty=2)
 points(x=means, y=rep(0,2),  col=cols[c(9,6)], pch=19)
+points(x=medians, y=rep(0,2),  col=cols[c(2,3)], pch=3)
 mtext("case 3", side=3, adj=0)
 legend("topright", legend=c(expression(italic("P. airoides")), expression(italic("G. rosea"))), col=c(cols[9], cols[6]),lwd=2, lty=1, bty="n")
 
 dat <- cbind(peai.into.vero,vero.into.peai)
 coex <- length(which(dat[,1]>0&dat[,2]>0))/4500
-mtext(paste0(round(coex*100,2), "%"), side=3, adj=1, cex=0.8)
+mtext(paste0(round(coex*100,2), "%"), side=3, adj=1, cex=1)
 
 # poca and trcy 
 means <- c(mean.poca.into.trcy, mean.trcy.into.poca)
+medians <- c(median.poca.into.trcy, median.trcy.into.poca)
+
 plot(density(poca.into.trcy, na.rm = T), col=cols[4], main ="", lwd=2,
      xlim=c(-1.5,6), ylim=c(0,5.5), xlab="")
 lines(density(trcy.into.poca, na.rm = T), col=cols[5], lwd=2)
 abline(v=0, lty=2)
 points(x=means, y=rep(0,2),  col=cols[c(4,5)], pch=19)
+points(x=medians, y=rep(0,2),  col=cols[c(2,3)], pch=3)
 mtext("case 3", side=3, adj=0)
 legend("topright", legend=c(expression(italic("P. canescens")), expression(italic("T. cyanopetala"))), col=c(cols[4], cols[5]),lwd=2, lty=1, bty="n")
 
 dat <- cbind(poca.into.trcy,trcy.into.poca)
 coex <- length(which(dat[,1]>0&dat[,2]>0))/4500
-mtext(paste0(round(coex*100,2), "%"), side=3, adj=1, cex=0.8)
+mtext(paste0(round(coex*100,2), "%"), side=3, adj=1, cex=1)
 
 
 # poca and vero 
 means <- c(mean.poca.into.vero, mean.vero.into.poca)
+medians <- c(median.poca.into.vero, median.vero.into.poca)
+
 plot(density(poca.into.vero, na.rm = T), col=cols[4], main ="", lwd=2,
      xlim=c(-1,6), ylim=c(0,6), xlab="")
 lines(density(vero.into.poca, na.rm = T), col=cols[6], lwd=2)
 abline(v=0, lty=2)
 points(x=means, y=rep(0,2),  col=cols[c(4,6)], pch=19)
+points(x=medians, y=rep(0,2),  col=cols[c(2,3)], pch=3)
 mtext("case 3", side=3, adj=0)
 legend("topright", legend=c(expression(italic("P. canescens")), expression(italic("G. rosea"))), col=c(cols[4], cols[6]),lwd=2, lty=1, bty="n")
-mtext(paste0(round(coex*100,2), "%"), side=3, adj=1, cex=0.8)
 
 dat <- cbind(poca.into.vero,vero.into.poca)
 coex <- length(which(dat[,1]>0&dat[,2]>0))/4500
-mtext(round(coex*100,2), side=3, adj=1, cex=0.8)
-
+mtext(paste0(round(coex*100,2), "%"), side=3, adj=1, cex=1)
 
 # summary barplot
 par(mar=c(2,4,1.5,1.5))
@@ -285,14 +325,14 @@ plot(density(peai.into.hygl, na.rm = T), col="black", main ="", lwd=2,
      xlim=c(-2,3), ylim=c(0,1.5), xlab="")
 lines(density(hygl.into.peai, na.rm = T), col="grey", main ="", lwd=2)
 abline(v=0, lty=2)
-points(x=means, y=rep(0,2),  col=cols[c("black","grey")], pch=19)
+points(x=means, y=rep(0,2),  col=c("black","grey"), pch=19)
 #species.names = c("dagl", "hygl", "plde", "poca", "trcy", "vero", "arca", "medi", "peai")
 legend("topright", legend=c(expression(italic("P. airoides")), expression(italic("H. glutinosum"))), col=c("black", "grey"),lwd=2, lty=1, bty="n")
 mtext(side=3, adj=0, "(a) case 6", cex=1.3)
 mtext(side = 2, line=2, "Density", cex=1.3)
 dat <- cbind(peai.into.hygl,hygl.into.peai)
 coex <- length(which(dat[,1]>0&dat[,2]>0))/4500
-mtext(paste0(round(coex*100,2), "%"), side=3, adj=1, cex=0.8)
+mtext(paste0(round(coex*100,2), "%"), side=3, adj=1, cex=1.3)
 
 #hygl and plde
 means <- c(mean.hygl.into.plde, mean.plde.into.hygl)
@@ -300,12 +340,12 @@ plot(density(hygl.into.plde, na.rm = T), col="black", main ="", lwd=2,
      xlim=c(-1,3.5), ylim=c(0,3.5), xlab="", ylab="")
 lines(density(plde.into.hygl, na.rm = T), col="grey", lwd=2)
 abline(v=0, lty=2)
-points(x=means, y=rep(0,2),  col=cols[c("black","grey")], pch=19)
+points(x=means, y=rep(0,2),  col=c("black","grey"), pch=19)
 legend("topright", legend=c(expression(italic("H. glutinosum")), expression(italic("P. debilis"))), col=c("black", "grey"),lwd=2, lty=1, bty="n")
 mtext(side=3, adj=0, "(b) case 4", cex=1.3)
 dat <- cbind(hygl.into.plde,plde.into.hygl)
 coex <- length(which(dat[,1]>0&dat[,2]>0))/4500
-mtext(paste0(round(coex*100,2), "%"), side=3, adj=1, cex=0.8)
+mtext(paste0(round(coex*100,2), "%"), side=3, adj=1, cex=1.3)
 
 # arca and peai
 means <- c(mean.arca.into.peai, mean.peai.into.arca)
@@ -313,14 +353,14 @@ plot(density(arca.into.peai, na.rm = T), col="black", main ="", lwd=2,
      xlim=c(-1,5), ylim=c(0,5), xlab="")
 lines(density(peai.into.arca, na.rm = T), col="grey", lwd=2)
 abline(v=0, lty=2)
-points(x=means, y=rep(0,2),  col=cols[c("black","grey")], pch=19)
+points(x=means, y=rep(0,2),  col=c("black","grey"), pch=19)
 mtext(side=3, adj=0, "(c) case 5", cex=1.3)
 legend("topright", legend=c(expression(italic("A. calendula")), expression(italic("P. airdoides"))), col=c("black", "grey"),lwd=2, lty=1, bty="n")
 mtext(side = 2, line=2, "Density", cex=1.3)
 mtext("Low density growth rate", side=1, line=2, cex=1.3)
 dat <- cbind(arca.into.peai,peai.into.arca)
 coex <- length(which(dat[,1]>0&dat[,2]>0))/4500
-mtext(paste0(round(coex*100,2), "%"), side=3, adj=1, cex=0.8)
+mtext(paste0(round(coex*100,2), "%"), side=3, adj=1, cex=1.3)
 
 # peai and plde
 means <- c(mean.peai.into.plde, mean.plde.into.peai)
@@ -328,13 +368,13 @@ plot(density(peai.into.plde, na.rm = T), col="black", main ="", lwd=2,
      xlim=c(-1,4), ylim=c(0,3), xlab="", ylab="")
 lines(density(plde.into.peai, na.rm = T), col="grey", lwd=2)
 abline(v=0, lty=2)
-points(x=means, y=rep(0,2),  col=cols[c("black","grey")], pch=19)
+points(x=means, y=rep(0,2),  col=c("black","grey"), pch=19)
 mtext("Low density growth rate", side=1, line=2, cex=1.3)
 legend("topright", legend=c(expression(italic("P. airoides")), expression(italic("P. debilis"))), col=c("black", "grey"),lwd=2, lty=1, bty="n")
 mtext(side=3, adj=0, "(d) case 6", cex=1.3)
 dat <- cbind(peai.into.plde,plde.into.peai)
 coex <- length(which(dat[,1]>0&dat[,2]>0))/4500
-mtext(paste0(round(coex*100,2), "%"), side=3, adj=1, cex=0.8)
+mtext(paste0(round(coex*100,2), "%"), side=3, adj=1, cex=1.3)
 
  dev.off()
 

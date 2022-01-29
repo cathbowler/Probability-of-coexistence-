@@ -1,6 +1,6 @@
 ##############################################################################################
 # This code simulates population growth to an equilibrium for each focal species, 
-# using the mean value of each parameter posterior 
+# using the median value of each parameter posterior 
 ##############################################################################################
 
 rm(list=ls())
