@@ -2,8 +2,8 @@
 ##### Conceptual figure #####
 #############################
 library(coda)
-#source("BH_ldgr_pairwise.R")
-source("BH.mean.ldgr.pairwise.R")
+source("invasion.approach.ldgr.means.R")
+source("invasions.approach.revisions.novar.R")
 
 do.transparent <- function(InCol, NewAlpha){
   rgb_vals <- col2rgb(InCol)[,1]
@@ -47,9 +47,9 @@ text(0.5, 3, "competitive \n exclusion", cex=1.5)
 mtext("(b)", side=3, adj=0, cex=1.3)
 
 # Invasion 2
-plot(density(nolot.hygl.into.plde, na.rm = T), main="", xlab="", ylab = "", lwd=3, col="turquoise",
+plot(density(hygl.into.plde, na.rm = T), main="", xlab="", ylab = "", lwd=3, col="turquoise",
      xlim=c(-2,3.5), yaxt="n", xaxt="n", ylim=c(0,3), cex.axis=1.3)
-lines(density(nolot.plde.into.hygl, na.rm = T), col="palevioletred", lwd=3)
+lines(density(plde.into.hygl, na.rm = T), col="palevioletred", lwd=3)
 abline(v=0, lty=2)
 mtext("Low density growth rate", side=1, line=2, cex=1.3)
 text(0, -0.3, "0", xpd = TRUE, cex=1.3)
