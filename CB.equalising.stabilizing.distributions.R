@@ -144,7 +144,7 @@ do.transparent <- function(InCol, NewAlpha){
 }
 
 pairs <- c("A. calendula & P. airoides", "A.calendula & P.canescens", "H.glutinosum & M.minima", 
-           "H. glutinosum & P. airoides", "H. glutinosum & P.deibilis", "H. glutinosum & G. rosea", 
+           "H. glutinosum & P. airoides", "H. glutinosum & P.debilis", "H. glutinosum & G. rosea", 
            "M.minima & P. airoides", "P.airoides & P. debilis", "P. airoides & P. canescens", 
            "P. airoides & T. cyanopetala", "P. airoides & G. rosea", "P. debilis & P. canescens", 
            "P.canescens & T. cyanopetala", "P. canescens & G. rosea")
@@ -224,7 +224,7 @@ plot(corrected.stabilizing[,9], log(equalizing[,9]), pch=16, col=alpha("skyblue"
 points(mean.corrected.stabilizing[9], log(mean.equalizing[9]), pch=19, col="black")
 lines(xseq, log(yseq), col="grey", lwd=2)
 polygon(c(xseq, rev(xseq)), c(log(yseq), rep(0, length(xseq))), col=tgreen)
-mtext(pairs[9], side=3, cex = 0/8)
+mtext(pairs[9], side=3, cex = 0.8)
 
 coex.thresh <- vector()
 stab.val<-vector()

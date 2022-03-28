@@ -19,7 +19,7 @@ cols = c("#F8766D","#E7861B", "#95A900", "#39B600", "#00C19C",
          "brown", "black", "#FC61D5", "#FC717F","red", "blue")
 
 pairs <- c("A. calendula & P. airoides", "A.calendula & P.canescens", "H.glutinosum & M.minima", 
-           "H. glutinosum & P. airoides", "H. glutinosum & P.deibilis", "H. glutinosum & G. rosea", 
+           "H. glutinosum & P. airoides", "H. glutinosum & P.debilis", "H. glutinosum & G. rosea", 
            "M.minima & P. airoides", "P.airoides & P. debilis", "P. airoides & P. canescens", 
            "P. airoides & T. cyanopetala", "P. airoides & G. rosea", "P. debilis & P. canescens", 
            "P.canescens & T. cyanopetala", "P. canescens & G. rosea")
@@ -36,7 +36,7 @@ tgreen <- do.transparent("seagreen4", 100)
 # make graph
 pdf("Figures/EqualizingStabilizingNew.pdf")
 plot(mean.corrected.stabilizing, log(mean.equalizing), cex=1.5, pch=1:14, col=cols, xlab=expression("Stabilizing Niche Differences "(1-rho)), 
-     ylab=expression("Log Fitness Differences "(Kappa[j]/Kappa[i])), ylim=c(0,6))
+     ylab=expression("Log Fitness Differences "(kappa[j]/kappa[i])), ylim=c(0,6))
 lines(xseq, log(yseq), col="grey", lwd=2)
 polygon(c(xseq, rev(xseq)), c(log(yseq), rep(0, length(xseq))), col=tgreen)
 #text("coexistence", x=0.8, y=1)
